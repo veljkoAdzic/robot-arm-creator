@@ -7,6 +7,7 @@ using System.Linq;
 using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Build_A_Bot
 {
@@ -15,11 +16,21 @@ namespace Build_A_Bot
         public List<Segment> Segments { get; set; }
         public int Length { get; set; }
         public Vector2 Base { get; set; }
-        public Robot(float X, float Y)
+        public bool FollowMouse { get; set; }
+        public DummyBall Ball { get; set; }
+
+        public int Widht { get; set; }
+        public int Height { get; set; }
+
+        public Robot(float X, float Y, int Width, int Height)
         {
             this.Length = 0;
+            this.Widht = Width;
+            this.Height = Height;
             this.Segments = new List<Segment>();
             this.Base = new Vector2(X, Y);
+            this.FollowMouse = true;
+            this.Ball = new DummyBall(X, Y, 60);
         }
 
         public void AddSegment(double len, double range_min, double range_max)
@@ -34,15 +45,30 @@ namespace Build_A_Bot
                 );
             }
 
+            Vector2  end = Segments.Last().end;
+            Ball.X = end.X;
+            Ball.Y = end.Y;
+
             Length++;
         }
+
+        public void BallUpdate()
+        {
+            Ball.X = Widht/2;
+            Ball.Y = Height/2;
+        }
+        
 
         public void Update(float X, float Y)
         {
             if (Length == 0) return;
 
-            Segment s; // segment koj se updatira
-            Vector2 target = new Vector2(X, Y); // cel
+            this.FollowMouse =  X > 0 && X < Widht && Y > 0 && Y < Height;
+            if (!FollowMouse) Ball.Update(Widht, Height);
+
+            // cel za sledenje
+            Vector2 target = FollowMouse ? new Vector2(X, Y) : Ball.Pos();
+            Segment s;
             for (int i = Length -1; i >= 0; i--)
             {
                 s = Segments[i];
@@ -63,6 +89,10 @@ namespace Build_A_Bot
         public void Show(Graphics g)
         {
             g.SmoothingMode = SmoothingMode.AntiAlias; // Poubav izgled
+
+            if (!FollowMouse)
+                Ball.Show(g);
+
             foreach (Segment seg in Segments)
             {
                 seg.Show(g);

@@ -18,11 +18,11 @@ namespace Build_A_Bot
             InitializeComponent();
             this.DoubleBuffered = true;
 
-            Rob = new Robot(this.Width / 2, this.Height - 50);
+            Rob = new Robot(this.Width / 2, this.Height - 50, this.Width, this.Height);
 
             // For testing
             for (double len = 100; len > 60; len-= 15)
-                Rob.AddSegment(len, -80.0, 80.0);
+                Rob.AddSegment(len, -90.0, 90.0);
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -38,15 +38,25 @@ namespace Build_A_Bot
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            //seg.Update();
-            //Invalidate();
+            Rob.Update(-100, -100);
+            Invalidate();
         }
 
         private void Form1_MouseMove(object sender, MouseEventArgs e)
         {
-            //seg.target(e.X, e.Y);
             Rob.Update(e.X, e.Y);
             Invalidate();
+        }
+
+        private void Form1_MouseLeave(object sender, EventArgs e)
+        {
+            Rob.BallUpdate();
+            timer1.Start();
+        }
+
+        private void Form1_MouseEnter(object sender, EventArgs e)
+        {
+            timer1.Stop();
         }
     }
 }
