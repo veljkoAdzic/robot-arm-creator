@@ -26,6 +26,7 @@ namespace Build_A_Bot
                 (float)r.NextDouble() * 2 - 1,
                 (float)r.NextDouble() * 2 - 1
                 );
+            Direction = Vector2.Normalize(Direction);
         }
 
         public void Update(int width, int height)
@@ -51,11 +52,16 @@ namespace Build_A_Bot
 
         public void Show(Graphics g)
         {
-            Pen p = new Pen(Color.Black);
+            float[] penDashStyle = { 7.0f, 15.0f };
+            Pen p = new Pen(Color.DarkGray);
+            p.DashStyle = System.Drawing.Drawing2D.DashStyle.Dash;
+            p.DashPattern = penDashStyle;
+
             g.DrawEllipse(p, X - Radius, Y - Radius, Radius*2, Radius*2);
+
             p.Dispose();
 
-            p = new Pen(Color.Red, 3);
+            p = new Pen(Color.IndianRed, 3);
             g.DrawEllipse(p, X, Y, 3, 3);
             p.Dispose();
 

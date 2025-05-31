@@ -101,6 +101,15 @@ namespace Build_A_Bot
         {
             // iscrtuvanje na segment
             Pen p = new Pen(Color.FromArgb(205, 140, 25), 10.0f);
+            p.StartCap = System.Drawing.Drawing2D.LineCap.Round;
+            p.EndCap = System.Drawing.Drawing2D.LineCap.Triangle;
+            
+            p.Color = Color.FromArgb(179, 121, 21);
+            p.Width = 12.0f;
+            g.DrawLine(p, pos.X, pos.Y, end.X, end.Y);
+
+            p.Color = Color.FromArgb(205, 140, 25);
+            p.Width = 8.0f;
             g.DrawLine(p, pos.X, pos.Y, end.X, end.Y);
             p.Dispose();
         }
