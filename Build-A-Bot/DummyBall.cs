@@ -52,11 +52,11 @@ namespace Build_A_Bot
         public void Show(Graphics g)
         {
             Pen p = new Pen(Color.Black);
-            g.DrawEllipse(p, X - Radius, Y - Radius, Radius, Radius);
+            g.DrawEllipse(p, X - Radius, Y - Radius, Radius*2, Radius*2);
             p.Dispose();
 
             p = new Pen(Color.Red, 3);
-            g.DrawEllipse(p, X - Radius / 2, Y - Radius / 2, 3, 3);
+            g.DrawEllipse(p, X, Y, 3, 3);
             p.Dispose();
 
         }

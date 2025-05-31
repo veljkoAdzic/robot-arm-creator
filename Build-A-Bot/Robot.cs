@@ -30,7 +30,7 @@ namespace Build_A_Bot
             this.Segments = new List<Segment>();
             this.Base = new Vector2(X, Y);
             this.FollowMouse = true;
-            this.Ball = new DummyBall(X, Y, 60);
+            this.Ball = new DummyBall(X, Y, 45);
         }
 
         public void AddSegment(double len, double range_min, double range_max)
