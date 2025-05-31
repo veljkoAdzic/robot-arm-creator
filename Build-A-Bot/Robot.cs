@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Numerics;
 using System.Text;
@@ -61,6 +62,7 @@ namespace Build_A_Bot
 
         public void Show(Graphics g)
         {
+            g.SmoothingMode = SmoothingMode.AntiAlias; // Poubav izgled
             foreach (Segment seg in Segments)
             {
                 seg.Show(g);
