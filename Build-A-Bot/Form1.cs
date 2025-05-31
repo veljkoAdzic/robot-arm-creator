@@ -7,14 +7,33 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
+using System.Numerics;
 namespace Build_A_Bot
 {
     public partial class Form1 : Form
     {
+        public Segment seg { get; set; }
         public Form1()
         {
             InitializeComponent();
+            this.DoubleBuffered = true;
+            this.seg = new Segment(new Vector2(300.0f, 300.0f), 100.0, 0);
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Form1_Paint(object sender, PaintEventArgs e)
+        {
+            seg.Show(e.Graphics);
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            seg.Update();
+            Invalidate();
         }
     }
 }
