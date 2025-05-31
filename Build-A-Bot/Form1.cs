@@ -32,7 +32,13 @@ namespace Build_A_Bot
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            seg.Update();
+            //seg.Update();
+            //Invalidate();
+        }
+
+        private void Form1_MouseMove(object sender, MouseEventArgs e)
+        {
+            seg.target(e.X, e.Y);
             Invalidate();
         }
     }
