@@ -62,6 +62,12 @@ namespace Build_A_Bot
             calculateEnd();
         }
 
+        public void Rebase(Vector2 b)
+        {   // Pomoshna funkcija za vrakjanje na lokacija b
+            this.pos = b;
+            calculateEnd();
+        }
+
         public void Show(Graphics g)
         {
             // iscrtuvanje na segment

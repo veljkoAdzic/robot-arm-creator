@@ -24,12 +24,12 @@ namespace Build_A_Bot
         public void AddSegment(double len)
         {
             if (Length == 0)
-                Segments.Add(new Segment(Base, len, 0));
+                Segments.Add(new Segment(Base, len, 0)); // Dodavanje na prv segment
             else
-            {
+            {   // Dodavanje na sleden segment
                 Segment last = Segments.Last();
                 Segments.Add(
-                    new Segment(last.pos, len, (last.angle * 180 / Math.PI))
+                    new Segment(last.end, len, (last.angle * 180 / Math.PI))
                 );
             }
 
@@ -47,6 +47,14 @@ namespace Build_A_Bot
                 s = Segments[i];
                 s.target(target.X, target.Y);
                 target = s.pos;  // da bidat povrzani segmenti
+            }
+
+            // Da ne se pomestuvaat od bazata
+            Vector2 b = Base;
+            foreach (Segment seg in Segments)
+            {
+                seg.Rebase(b);
+                b = seg.end;
             }
 
         }
