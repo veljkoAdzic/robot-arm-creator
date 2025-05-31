@@ -18,9 +18,11 @@ namespace Build_A_Bot
             InitializeComponent();
             this.DoubleBuffered = true;
 
-            //this.seg = new Segment(new Vector2(300.0f, 300.0f), 100.0, 0);
             Rob = new Robot(this.Width / 2, this.Height - 50);
-            Rob.AddSegment(150.0);
+            
+            // For testing
+            for (double len = 100; len > 30; len-= 15)
+                Rob.AddSegment(len);
         }
 
         private void Form1_Load(object sender, EventArgs e)

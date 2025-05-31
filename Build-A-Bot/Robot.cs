@@ -38,8 +38,17 @@ namespace Build_A_Bot
 
         public void Update(float X, float Y)
         {
-            // TODO
-            Segments[0].target(X, Y);
+            if (Length == 0) return;
+
+            Segment s; // segment koj se updatira
+            Vector2 target = new Vector2(X, Y); // cel
+            for (int i = Length -1; i >= 0; i--)
+            {
+                s = Segments[i];
+                s.target(target.X, target.Y);
+                target = s.pos;  // da bidat povrzani segmenti
+            }
+
         }
 
         public void Show(Graphics g)
