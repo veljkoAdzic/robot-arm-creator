@@ -30,7 +30,7 @@ namespace Build_A_Bot
             {   // Dodavanje na sleden segment
                 Segment last = Segments.Last();
                 Segments.Add(
-                    new Segment(last, len, range_min, range_max)
+                    new Segment(last, len)//, range_min, range_max)
                 );
             }
 

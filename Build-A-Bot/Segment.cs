@@ -35,14 +35,14 @@ namespace Build_A_Bot
             calculateEnd();
         }
 
-        public Segment(Segment s, double len, double range_min, double range_max)
+        public Segment(Segment s, double len)//, double range_min, double range_max)
         {
             this.pos = s.end;
             this.len = len;
             this.angle = s.angle; // sekogash ochekuva stepeni
 
-            this.range_min = (range_min * Math.PI / 180);
-            this.range_max = (range_max * Math.PI / 180);
+            this.range_min = -Math.PI * 2;//(range_min * Math.PI / 180);
+            this.range_max = Math.PI * 2;//(range_max * Math.PI / 180);
 
             this.change = 0;
 
