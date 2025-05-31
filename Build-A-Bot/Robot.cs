@@ -22,15 +22,15 @@ namespace Build_A_Bot
             this.Base = new Vector2(X, Y);
         }
 
-        public void AddSegment(double len)
+        public void AddSegment(double len, double range_min, double range_max)
         {
             if (Length == 0)
-                Segments.Add(new Segment(Base, len, 0)); // Dodavanje na prv segment
+                Segments.Add(new Segment(Base, len, 0, range_min, range_max)); // Dodavanje na prv segment
             else
             {   // Dodavanje na sleden segment
                 Segment last = Segments.Last();
                 Segments.Add(
-                    new Segment(last.end, len, (last.angle * 180 / Math.PI))
+                    new Segment(last, len, range_min, range_max)
                 );
             }
 

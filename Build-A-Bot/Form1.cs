@@ -19,10 +19,10 @@ namespace Build_A_Bot
             this.DoubleBuffered = true;
 
             Rob = new Robot(this.Width / 2, this.Height - 50);
-            
+
             // For testing
-            for (double len = 100; len > 30; len-= 15)
-                Rob.AddSegment(len);
+            for (double len = 100; len > 60; len-= 15)
+                Rob.AddSegment(len, -80.0, 80.0);
         }
 
         private void Form1_Load(object sender, EventArgs e)
