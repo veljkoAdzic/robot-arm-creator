@@ -35,11 +35,11 @@ namespace Build_A_Bot
             X += Direction.X * mult;
             Y += Direction.Y * mult;
 
-            if (X < Radius || X + Radius > width)
+            if ((Direction.X < 0 && X < Radius) || ( Direction.X > 0 && X + Radius > width))
             {   // Sudir so horizontalni granici
                 Direction = new Vector2(-Direction.X, Direction.Y);
             }
-            if (Y < Radius || Y + Radius > height)
+            if ((Direction.Y < 0 && Y < Radius) || ( Direction.Y > 0 && Y + Radius > height))
             {   // Sudir so vertikalni granici
                 Direction = new Vector2(Direction.X, -Direction.Y);
             }

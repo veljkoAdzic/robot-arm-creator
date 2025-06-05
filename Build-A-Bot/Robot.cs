@@ -56,7 +56,7 @@ namespace Build_A_Bot
         {
             Vector2  end = Segments.Last().end;
             Ball.X = end.X;
-            Ball.Y = Math.Min(end.Y, Width - Ball.Radius);
+            Ball.Y = end.Y; // Math.Min(end.Y, Width - Ball.Radius);
             //Ball.Update(Widht, Height);
         }
         
@@ -66,6 +66,7 @@ namespace Build_A_Bot
             if (Length == 0) return;
 
             this.FollowMouse = X > 0 && X < Width && Y > 0 && Y < Height;
+            if (FollowMouse) BallUpdate();
 
             // cel za sledenje
             Vector2 target = FollowMouse ? new Vector2(X, Y) : Ball.Pos();

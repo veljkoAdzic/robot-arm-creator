@@ -34,7 +34,6 @@ namespace Build_A_Bot
 
         private void Form1_Paint(object sender, PaintEventArgs e)
         {
-            //seg.Show(e.Graphics);
             Rob.Show(e.Graphics);
         }
 
