@@ -35,13 +35,25 @@ namespace Build_A_Bot
             X += Direction.X * mult;
             Y += Direction.Y * mult;
 
+            bool flag = false;
+
             if ((Direction.X < 0 && X < Radius) || ( Direction.X > 0 && X + Radius > width))
             {   // Sudir so horizontalni granici
                 Direction = new Vector2(-Direction.X, Direction.Y);
+                flag = true;
             }
             if ((Direction.Y < 0 && Y < Radius) || ( Direction.Y > 0 && Y + Radius > height))
             {   // Sudir so vertikalni granici
                 Direction = new Vector2(Direction.X, -Direction.Y);
+                flag = true;
+            }
+
+            if (flag)
+            {   // Da ima malo odstapuvanje vo odbivanje
+                Random r = new Random();
+                float mod = 0.01f;
+                Direction = Direction + new Vector2( mod * (float)(r.NextDouble() - 0.5), mod * (float)(r.NextDouble() - 0.5));
+                Direction = Vector2.Normalize(Direction);
             }
         }
 
