@@ -21,10 +21,10 @@ namespace Build_A_Bot
             this.MaximizeBox = false;
 
             Rob = new Robot(this.Width / 2, this.Height - 50, this.Width, this.Height);
-            
+
             // For testing
-            for (double len = 100; len > 30; len-= 15)
-                Rob.AddSegment(len, -95.0, 95.0);
+            for (double len = 100; len > 30; len -= 15)
+                Rob.AddSegment(len);//, -95.0, 95.0);
         }
 
         private void Form1_Load(object sender, EventArgs e)

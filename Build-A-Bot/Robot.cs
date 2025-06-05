@@ -33,6 +33,10 @@ namespace Build_A_Bot
             this.Ball = new DummyBall(X, Y, 45);
         }
 
+        public void AddSegment(double len)
+        {
+            AddSegment(len, -365.0, 365.0);
+        }
         public void AddSegment(double len, double range_min, double range_max)
         {
             if (Length == 0)

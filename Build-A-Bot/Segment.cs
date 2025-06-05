@@ -68,13 +68,10 @@ namespace Build_A_Bot
             // Presmetka na noviot agol
             change = Constrain(a, range_min, range_max);
 
-            
-             
 
             // Postavuvanje velichina so obratna nasoka na dir vektor 
-            double mag = Math.Sqrt((double)(dir.X * dir.X + dir.Y * dir.Y));
-            Vector2 MagModifier = new Vector2((float)( -len / mag));
-            dir = dir * MagModifier;
+            dir = Vector2.Normalize(dir);
+            dir = Vector2.Multiply(dir, (float)(-len));
 
             // pomestuvanje baza da pokazuva segemnt to target
             pos = t + dir;            
