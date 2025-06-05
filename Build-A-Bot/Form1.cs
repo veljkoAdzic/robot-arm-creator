@@ -39,7 +39,7 @@ namespace Build_A_Bot
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            Rob.Update(-100, -100);
+            Rob.Update();
             Invalidate();
         }
 

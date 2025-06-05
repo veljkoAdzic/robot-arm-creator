@@ -60,7 +60,10 @@ namespace Build_A_Bot
             //Ball.Update(Widht, Height);
         }
         
-
+        public void Update()
+        {
+            this.Update(-100, -100);
+        }
         public void Update(float X, float Y)
         {
             if (Length == 0) return;
