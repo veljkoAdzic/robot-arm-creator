@@ -25,7 +25,7 @@ namespace Build_A_Bot
         public Robot(float X, float Y, int Width, int Height)
         {
             this.Length = 0;
-            this.Width = Width;
+            this.Width = Width - 15;
             this.Height = Height - 40;
             this.Segments = new List<Segment>();
             this.Base = new Vector2(X, Y);
@@ -95,6 +95,17 @@ namespace Build_A_Bot
 
             Ball.Update(Width, Height);
 
+        }
+
+        public void BuildFrom(List<Segment> segs)
+        {
+            this.Segments = segs;
+            this.Length = this.Segments.Count;
+            this.Base = new Vector2(segs[0].pos.X, segs[0].pos.Y);
+
+            Segment last = Segments.Last();
+            Ball.X = last.end.X;
+            Ball.Y = last.end.Y;
         }
 
         public void Show(Graphics g)

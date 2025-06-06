@@ -42,7 +42,7 @@ namespace Build_A_Bot
                 Direction = new Vector2(-Direction.X, Direction.Y);
                 flag = true;
             }
-            if ((Direction.Y < 0 && Y < Radius) || ( Direction.Y > 0 && Y + Radius > height))
+            if ((Direction.Y < 0 && Y < Radius + 27) || ( Direction.Y > 0 && Y + Radius > height))
             {   // Sudir so vertikalni granici
                 Direction = new Vector2(Direction.X, -Direction.Y);
                 flag = true;

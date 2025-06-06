@@ -4,12 +4,14 @@ using System.Drawing;
 using System.Linq;
 using System.Numerics;
 using System.Runtime.CompilerServices;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Build_A_Bot
 {
-    public class Segment
+    [Serializable]
+    public class Segment : ISerializable
     {
         public Vector2 pos { get; set; }
         public Vector2 end { get; set; }
@@ -117,6 +119,33 @@ namespace Build_A_Bot
                 return value <= max ? value : max;
             else 
                 return min;
+        }
+
+        public void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            info.AddValue("PosX", pos.X);
+            info.AddValue("PosY", pos.Y);
+
+            info.AddValue("EndX", end.X);
+            info.AddValue("EndY", end.Y);
+
+            info.AddValue("Angle", angle);
+            info.AddValue("Len", len);
+            info.AddValue("Change", change);
+            info.AddValue("RangeMin", range_min);
+            info.AddValue("RangeMax", range_max);
+        }
+
+        private Segment(SerializationInfo info, StreamingContext context)
+        {
+            this.pos = new Vector2((float)info.GetDouble("PosX"), (float)info.GetDouble("PosY"));
+            this.end = new Vector2((float)info.GetDouble("EndX"), (float)info.GetDouble("EndY"));
+
+            this.angle = info.GetDouble("Angle");
+            this.len = info.GetDouble("Len");
+            this.change = info.GetDouble("Change");
+            this.range_min = info.GetDouble("RangeMin");
+            this.range_max = info.GetDouble("RangeMax");
         }
     }
 }

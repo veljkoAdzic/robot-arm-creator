@@ -36,6 +36,7 @@
             this.tsbSave = new System.Windows.Forms.ToolStripButton();
             this.tsbLoad = new System.Windows.Forms.ToolStripButton();
             this.tsbBuild = new System.Windows.Forms.ToolStripButton();
+            this.tsbSaveAs = new System.Windows.Forms.ToolStripButton();
             this.toolStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -50,6 +51,7 @@
             this.toolStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.toolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsbNew,
+            this.tsbSaveAs,
             this.tsbSave,
             this.tsbLoad,
             this.tsbBuild});
@@ -66,7 +68,7 @@
             this.tsbNew.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbNew.Name = "tsbNew";
             this.tsbNew.Size = new System.Drawing.Size(24, 24);
-            this.tsbNew.Text = "toolStripButton1";
+            this.tsbNew.Text = "Креирај ново";
             this.tsbNew.ToolTipText = "Креирај ново";
             // 
             // tsbSave
@@ -76,8 +78,9 @@
             this.tsbSave.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbSave.Name = "tsbSave";
             this.tsbSave.Size = new System.Drawing.Size(24, 24);
-            this.tsbSave.Text = "toolStripButton1";
+            this.tsbSave.Text = "Зачувај";
             this.tsbSave.ToolTipText = "Зачувај";
+            this.tsbSave.Click += new System.EventHandler(this.tsbSave_Click);
             // 
             // tsbLoad
             // 
@@ -86,8 +89,9 @@
             this.tsbLoad.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbLoad.Name = "tsbLoad";
             this.tsbLoad.Size = new System.Drawing.Size(24, 24);
-            this.tsbLoad.Text = "toolStripButton1";
+            this.tsbLoad.Text = "Отвори";
             this.tsbLoad.ToolTipText = "Отвори";
+            this.tsbLoad.Click += new System.EventHandler(this.tsbLoad_Click);
             // 
             // tsbBuild
             // 
@@ -96,8 +100,19 @@
             this.tsbBuild.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbBuild.Name = "tsbBuild";
             this.tsbBuild.Size = new System.Drawing.Size(24, 24);
-            this.tsbBuild.Text = "toolStripButton1";
-            this.tsbBuild.ToolTipText = "Креирај робот";
+            this.tsbBuild.Text = "Промени робот";
+            this.tsbBuild.ToolTipText = "Промени робот";
+            this.tsbBuild.Click += new System.EventHandler(this.tsbBuild_Click);
+            // 
+            // tsbSaveAs
+            // 
+            this.tsbSaveAs.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tsbSaveAs.Image = ((System.Drawing.Image)(resources.GetObject("tsbSaveAs.Image")));
+            this.tsbSaveAs.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbSaveAs.Name = "tsbSaveAs";
+            this.tsbSaveAs.Size = new System.Drawing.Size(24, 24);
+            this.tsbSaveAs.Text = "Зачувај како";
+            this.tsbSaveAs.Click += new System.EventHandler(this.tsbSaveAs_Click);
             // 
             // Form1
             // 
@@ -128,6 +143,7 @@
         private System.Windows.Forms.ToolStripButton tsbNew;
         private System.Windows.Forms.ToolStripButton tsbLoad;
         private System.Windows.Forms.ToolStripButton tsbBuild;
+        private System.Windows.Forms.ToolStripButton tsbSaveAs;
     }
 }
 
