@@ -3,6 +3,10 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
+# My ignores
+robotic_arm_48.png
+robotic_arm_1024.png
+
 # User-specific files
 *.rsuser
 *.suo

@@ -20,7 +20,7 @@ namespace Build_A_Bot
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
 
-            Rob = new Robot(this.Width / 2, this.Height - 50, this.Width, this.Height);
+            Rob = new Robot(this.Width / 2, this.Height - 100, this.Width, this.Height);
 
             // For testing
             for (double len = 100; len > 30; len -= 15)
