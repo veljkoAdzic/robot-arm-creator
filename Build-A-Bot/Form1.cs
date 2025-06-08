@@ -154,7 +154,7 @@ namespace Build_A_Bot
             if(menu.ShowDialog() != DialogResult.OK || true) // !!!!!! TEMP true
             {
                 this.Modified = this.Modified || menu.Modified;
-                this.Rob = menu.EditingRobot;
+                this.Rob.BuildFrom(menu.EditingRobot.Segments, true);
             }
             timer1.Start();
             

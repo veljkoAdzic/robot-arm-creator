@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Linq;
@@ -97,11 +98,22 @@ namespace Build_A_Bot
 
         }
 
-        public void BuildFrom(List<Segment> segs)
+        public void BuildFrom(List<Segment> segs, bool Rebase = false)
         {
-            this.Segments = segs;
-            this.Length = this.Segments.Count;
-            this.Base = new Vector2(segs[0].pos.X, segs[0].pos.Y);
+            if (!Rebase)
+            {
+                this.Segments = segs;
+                this.Length = this.Segments.Count;
+                this.Base = new Vector2(segs[0].pos.X, segs[0].pos.Y);
+            } else
+            {
+                this.Segments.Clear();
+                this.Length = 0;
+                foreach (var segment in segs)
+                {
+                    this.AddSegment(segment.len);//, segment.range_min, segment.range_max);
+                }
+            }
 
             Segment last = Segments.Last();
             Ball.X = last.end.X;

@@ -14,21 +14,51 @@ namespace Build_A_Bot
     {
         public Robot EditingRobot { get; set; }
         public bool Modified { get; set; }
+        public Color SelectedColour { get; set; }
         public BuilderMenu()
         {
             InitializeComponent();
-            this.EditingRobot = new Robot(this.Width/2, this.Height - 50, this.Width, this.Height);
+            this.EditingRobot = new Robot(pnlPreview.Width/2, pnlPreview.Height - 50, pnlPreview.Width, pnlPreview.Height);
             this.Modified = false;
+            this.SelectedColour = Color.FromArgb(205, 140, 25);
+            
         }
 
         public BuilderMenu(Robot r)
         {
             InitializeComponent();
-            this.EditingRobot = r;
+
+            this.EditingRobot = new Robot(pnlPreview.Width / 2, pnlPreview.Height - 50, pnlPreview.Width, pnlPreview.Height);
+            
+            this.EditingRobot.BuildFrom(r.Segments, true);
+            
+
+            
+            
             this.Modified = false;
         }
 
+        private void btnColour_Click(object sender, EventArgs e)
+        {
+            colorDialog.AllowFullOpen = true;
+            colorDialog.ShowHelp = true;
+            colorDialog.Color = SelectedColour;
 
+            if( colorDialog.ShowDialog() == DialogResult.OK)
+            {
+                this.SelectedColour = colorDialog.Color;
+                btnColour.BackColor = SelectedColour;
+            }
+        }
 
+        private void pnlPreview_Paint(object sender, PaintEventArgs e)
+        {
+            this.EditingRobot.Show(e.Graphics);
+        }
+
+        private void BuilderMenu_Load(object sender, EventArgs e)
+        {
+            btnColour.BackColor = SelectedColour;
+        }
     }
 }
