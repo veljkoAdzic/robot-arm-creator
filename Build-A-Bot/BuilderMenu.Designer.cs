@@ -64,6 +64,11 @@
             0,
             0,
             0});
+            this.nudLength.Minimum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
             this.nudLength.Name = "nudLength";
             this.nudLength.Size = new System.Drawing.Size(145, 20);
             this.nudLength.TabIndex = 1;
@@ -112,6 +117,7 @@
             this.btnAdd.TabIndex = 5;
             this.btnAdd.Text = "Додади сегмент";
             this.btnAdd.UseVisualStyleBackColor = true;
+            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
             // btnUp
             // 
@@ -139,6 +145,7 @@
             this.btnDelete.TabIndex = 9;
             this.btnDelete.Text = "Избриши сегмент";
             this.btnDelete.UseVisualStyleBackColor = true;
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
             // pnlPreview
             // 

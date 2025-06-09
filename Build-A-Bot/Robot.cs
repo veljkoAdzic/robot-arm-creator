@@ -35,19 +35,19 @@ namespace Build_A_Bot
             this.Ball = new DummyBall(X, Y, 45);
         }
 
-        public void AddSegment(double len)
+        public void AddSegment(double len, Color? c = null)
         {
-            AddSegment(len, -365.0, 365.0);
+            AddSegment(len, -365.0, 365.0, c.GetValueOrDefault(Segment.DEFAULT_COLOUR));
         }
-        public void AddSegment(double len, double range_min, double range_max)
+        public void AddSegment(double len, double range_min, double range_max, Color? c)
         {
             if (Length == 0)
-                Segments.Add(new Segment(Base, len, 0, range_min, range_max)); // Dodavanje na prv segment
+                Segments.Add(new Segment(Base, len, 0, range_min, range_max, c)); // Dodavanje na prv segment
             else
             {   // Dodavanje na sleden segment
                 Segment last = Segments.Last();
                 Segments.Add(
-                    new Segment(last, len)//, range_min, range_max)
+                    new Segment(last, len, c)//, range_min, range_max)
                 );
             }
 
@@ -112,13 +112,21 @@ namespace Build_A_Bot
                 this.Length = 0;
                 foreach (var segment in segs)
                 {
-                    this.AddSegment(segment.len);//, segment.range_min, segment.range_max);
+                    this.AddSegment(segment.len, segment.Colour);//, segment.range_min, segment.range_max);
                 }
             }
 
             Segment last = Segments.Last();
             Ball.X = last.end.X;
             Ball.Y = last.end.Y;
+        }
+
+        public void RemoveSegement(int index)
+        {
+            Vector2 end = Segments.Last().end;
+            Segments.RemoveAt(index);
+            this.Length--;
+            this.Update(end.X, end.Y);
         }
 
         public void Show(Graphics g)

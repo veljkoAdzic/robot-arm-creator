@@ -8,6 +8,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Forms.VisualStyles;
 
 namespace Build_A_Bot
 {
@@ -61,9 +62,10 @@ namespace Build_A_Bot
                 BindingFlags.NonPublic, null, pnlPreview, new object[] {true});
 
             this.SelectedColour = Segment.DEFAULT_COLOUR;
+            btnColour.BackColor = SelectedColour;
             this.EditingRobot.PreviewMode = true;
 
-            foreach (var seg in EditingRobot.Segments)
+            foreach (var seg in EditingRobot.Segments.Reverse<Segment>() )
             {
                 lbSegments.Items.Add(seg);
             }
@@ -75,6 +77,30 @@ namespace Build_A_Bot
             this.EditingRobot.FollowMouse = false;
             this.EditingRobot.Update(e.X, e.Y);
             pnlPreview.Invalidate();
+        }
+
+        private void btnAdd_Click(object sender, EventArgs e)
+        {
+            this.EditingRobot.AddSegment((double)nudLength.Value, this.SelectedColour);
+            lbSegments.Items.Insert(0, this.EditingRobot.Segments.Last());
+            pnlPreview.Invalidate();
+
+            Modified = true;
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            int ind = lbSegments.SelectedIndex;
+            if (ind == -1) return;
+
+            lbSegments.Items.RemoveAt(ind);
+
+            ind = this.EditingRobot.Length - ind - 1; // Vistinski indeks
+
+            this.EditingRobot.RemoveSegement(ind);
+            pnlPreview.Invalidate();
+
+            Modified = true;
         }
     }
 }

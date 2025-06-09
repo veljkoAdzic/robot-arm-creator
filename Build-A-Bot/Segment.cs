@@ -142,6 +142,8 @@ namespace Build_A_Bot
             info.AddValue("Change", change);
             info.AddValue("RangeMin", range_min);
             info.AddValue("RangeMax", range_max);
+            info.AddValue("Colour", Colour.ToArgb());
+
         }
 
         private Segment(SerializationInfo info, StreamingContext context)
@@ -154,6 +156,7 @@ namespace Build_A_Bot
             this.change = info.GetDouble("Change");
             this.range_min = info.GetDouble("RangeMin");
             this.range_max = info.GetDouble("RangeMax");
+            this.Colour = Color.FromArgb( info.GetInt32("Colour") );
         }
 
         override public String ToString()
