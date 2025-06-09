@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Numerics;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,6 +24,8 @@ namespace Build_A_Bot
             this.EditingRobot = new Robot(pnlPreview.Width/2, pnlPreview.Height - 50, pnlPreview.Width, pnlPreview.Height);
             this.Modified = false;
 
+            this.FormBorderStyle = FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
         }
 
         public BuilderMenu(Robot r)
@@ -34,6 +37,10 @@ namespace Build_A_Bot
             this.EditingRobot.BuildFrom(r.Segments, true);
 
             this.Modified = false;
+
+
+            this.FormBorderStyle = FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
         }
 
         private void btnColour_Click(object sender, EventArgs e)
@@ -101,6 +108,54 @@ namespace Build_A_Bot
             pnlPreview.Invalidate();
 
             Modified = true;
+        }
+
+        private void btnUp_Click(object sender, EventArgs e)
+        {// Pomesti selektiran segment nagore (napred vo lista)
+            int ind = lbSegments.SelectedIndex;
+            if (ind <= 0) return;
+
+            // Zamena vo lista
+            Segment tmp = lbSegments.Items[ind] as Segment;
+            lbSegments.Items.RemoveAt(ind);
+            lbSegments.Items.Insert(ind - 1, tmp);
+
+            ind = EditingRobot.Length - ind - 1; // Inverzija na indeks
+            
+            // Zamena vo Robot
+            tmp = EditingRobot.Segments[ind];
+            EditingRobot.Segments.RemoveAt(ind);
+            EditingRobot.Segments.Insert(ind+1, tmp);
+
+            // Update, Iscrtuvanje i modifikacija
+            Vector2 end = EditingRobot.Segments.Last().end;
+            EditingRobot.Update(end.X, end.Y);
+            pnlPreview.Invalidate();
+            this.Modified = true;
+        }
+
+        private void btnDown_Click(object sender, EventArgs e)
+        {// Pomesti selektiran segment nadolu (nazad vo lista)
+            int ind = lbSegments.SelectedIndex;
+            if (ind < 0 || ind >= EditingRobot.Length-1) return;
+
+            // Zamena vo lista
+            Segment tmp = lbSegments.Items[ind] as Segment;
+            lbSegments.Items.RemoveAt(ind);
+            lbSegments.Items.Insert(ind + 1, tmp);
+
+            ind = EditingRobot.Length - ind - 1; // Inverzija na indeks
+
+            // Zamena vo Robot
+            tmp = EditingRobot.Segments[ind];
+            EditingRobot.Segments.RemoveAt(ind);
+            EditingRobot.Segments.Insert(ind - 1, tmp);
+
+            // Update, Iscrtuvanje i modifikacija
+            Vector2 end = EditingRobot.Segments.Last().end;
+            EditingRobot.Update(end.X, end.Y);
+            pnlPreview.Invalidate();
+            this.Modified = true;
         }
     }
 }

@@ -127,6 +127,7 @@
             this.btnUp.TabIndex = 6;
             this.btnUp.Text = "▲";
             this.btnUp.UseVisualStyleBackColor = true;
+            this.btnUp.Click += new System.EventHandler(this.btnUp_Click);
             // 
             // btnDown
             // 
@@ -136,6 +137,7 @@
             this.btnDown.TabIndex = 7;
             this.btnDown.Text = "▼";
             this.btnDown.UseVisualStyleBackColor = true;
+            this.btnDown.Click += new System.EventHandler(this.btnDown_Click);
             // 
             // btnDelete
             // 
@@ -149,10 +151,10 @@
             // 
             // pnlPreview
             // 
-            this.pnlPreview.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.pnlPreview.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pnlPreview.Location = new System.Drawing.Point(336, 30);
             this.pnlPreview.Name = "pnlPreview";
-            this.pnlPreview.Size = new System.Drawing.Size(352, 358);
+            this.pnlPreview.Size = new System.Drawing.Size(335, 358);
             this.pnlPreview.TabIndex = 10;
             this.pnlPreview.Paint += new System.Windows.Forms.PaintEventHandler(this.pnlPreview_Paint);
             this.pnlPreview.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pnlPreview_MouseMove);
@@ -161,7 +163,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(739, 450);
+            this.ClientSize = new System.Drawing.Size(711, 450);
             this.Controls.Add(this.pnlPreview);
             this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.btnDown);
