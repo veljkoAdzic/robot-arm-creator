@@ -151,7 +151,7 @@ namespace Build_A_Bot
         {
             BuilderMenu menu = new BuilderMenu(this.Rob);
             timer1.Stop();
-            if(menu.ShowDialog() != DialogResult.OK && menu.Modified) 
+            if(menu.ShowDialog() == DialogResult.OK && menu.Modified) 
             {
                 this.Modified = this.Modified || menu.Modified;
                 this.Rob.BuildFrom(menu.EditingRobot.Segments, true);

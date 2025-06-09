@@ -40,6 +40,8 @@
             this.btnDown = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
             this.pnlPreview = new System.Windows.Forms.Panel();
+            this.btnCancel = new System.Windows.Forms.Button();
+            this.btnSave = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.nudLength)).BeginInit();
             this.SuspendLayout();
             // 
@@ -154,16 +156,38 @@
             this.pnlPreview.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pnlPreview.Location = new System.Drawing.Point(336, 30);
             this.pnlPreview.Name = "pnlPreview";
-            this.pnlPreview.Size = new System.Drawing.Size(335, 358);
+            this.pnlPreview.Size = new System.Drawing.Size(335, 343);
             this.pnlPreview.TabIndex = 10;
             this.pnlPreview.Paint += new System.Windows.Forms.PaintEventHandler(this.pnlPreview_Paint);
             this.pnlPreview.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pnlPreview_MouseMove);
+            // 
+            // btnCancel
+            // 
+            this.btnCancel.Location = new System.Drawing.Point(506, 379);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(165, 26);
+            this.btnCancel.TabIndex = 12;
+            this.btnCancel.Text = "Откажи";
+            this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+            // 
+            // btnSave
+            // 
+            this.btnSave.Location = new System.Drawing.Point(336, 379);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(165, 26);
+            this.btnSave.TabIndex = 11;
+            this.btnSave.Text = "Зачувај";
+            this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // BuilderMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(711, 450);
+            this.Controls.Add(this.btnSave);
+            this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.pnlPreview);
             this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.btnDown);
@@ -197,5 +221,7 @@
         private System.Windows.Forms.Button btnDown;
         private System.Windows.Forms.Button btnDelete;
         private System.Windows.Forms.Panel pnlPreview;
+        private System.Windows.Forms.Button btnCancel;
+        private System.Windows.Forms.Button btnSave;
     }
 }

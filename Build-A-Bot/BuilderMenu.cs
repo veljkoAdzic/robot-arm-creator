@@ -68,6 +68,9 @@ namespace Build_A_Bot
                 BindingFlags.SetProperty | BindingFlags.Instance | 
                 BindingFlags.NonPublic, null, pnlPreview, new object[] {true});
 
+            this.AcceptButton = btnSave;
+            this.CancelButton = btnCancel;
+
             this.SelectedColour = Segment.DEFAULT_COLOUR;
             btnColour.BackColor = SelectedColour;
             this.EditingRobot.PreviewMode = true;
@@ -156,6 +159,19 @@ namespace Build_A_Bot
             EditingRobot.Update(end.X, end.Y);
             pnlPreview.Invalidate();
             this.Modified = true;
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            this.Modified = false;
+            Form1 f = Parent as Form1;
+            DialogResult = DialogResult.Cancel;
+        }
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            Form1 f = Parent as Form1;
+            DialogResult = DialogResult.OK;
         }
     }
 }
