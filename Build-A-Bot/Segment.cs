@@ -23,7 +23,10 @@ namespace Build_A_Bot
 
         public static double OFFSET = (-90 * Math.PI / 180);
 
-        public Segment(Vector2 pos, double len, double ang_deg, double range_min, double range_max)
+        public static Color DEFAULT_COLOUR = Color.FromArgb(205, 140, 25);
+        public Color Colour { get; set; }
+
+        public Segment(Vector2 pos, double len, double ang_deg, double range_min, double range_max, Color? c = null)
         {
             this.pos = pos;
             this.len = len;
@@ -32,12 +35,15 @@ namespace Build_A_Bot
             this.range_min = (range_min * Math.PI / 180);
             this.range_max = (range_max * Math.PI / 180);
 
+
+            this.Colour = c.GetValueOrDefault(DEFAULT_COLOUR); 
+
             this.change = 0;
 
             calculateEnd();
         }
 
-        public Segment(Segment s, double len)//, double range_min, double range_max)
+        public Segment(Segment s, double len, Color? c = null)//, double range_min, double range_max)
         {
             this.pos = s.end;
             this.len = len;
@@ -45,6 +51,8 @@ namespace Build_A_Bot
 
             this.range_min = -Math.PI * 2;//(range_min * Math.PI / 180);
             this.range_max = Math.PI * 2;//(range_max * Math.PI / 180);
+
+            this.Colour = c.GetValueOrDefault(DEFAULT_COLOUR);
 
             this.change = 0;
 
@@ -99,16 +107,16 @@ namespace Build_A_Bot
         public void Show(Graphics g)
         {
             // iscrtuvanje na segment
-            Pen p = new Pen(Color.FromArgb(205, 140, 25), 10.0f);
+            Pen p = new Pen(this.Colour, 10.0f);
             p.StartCap = System.Drawing.Drawing2D.LineCap.Round;
             p.EndCap = System.Drawing.Drawing2D.LineCap.Triangle;
-            
-            p.Color = Color.FromArgb(179, 121, 21);
-            p.Width = 12.0f;
-            g.DrawLine(p, pos.X, pos.Y, end.X, end.Y);
 
-            p.Color = Color.FromArgb(205, 140, 25);
-            p.Width = 8.0f;
+            //p.Color = Color.FromArgb(179, 121, 21);
+            //p.Width = 12.0f;
+            //g.DrawLine(p, pos.X, pos.Y, end.X, end.Y);
+
+            //p.Color = Color.FromArgb(205, 140, 25);
+            //p.Width = 8.0f;
             g.DrawLine(p, pos.X, pos.Y, end.X, end.Y);
             p.Dispose();
         }
@@ -146,6 +154,11 @@ namespace Build_A_Bot
             this.change = info.GetDouble("Change");
             this.range_min = info.GetDouble("RangeMin");
             this.range_max = info.GetDouble("RangeMax");
+        }
+
+        override public String ToString()
+        {
+            return $"Length: {len} - Color: RGB({this.Colour.R}, {Colour.G}, {Colour.B})";
         }
     }
 }

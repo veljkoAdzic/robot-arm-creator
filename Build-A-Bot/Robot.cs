@@ -22,6 +22,7 @@ namespace Build_A_Bot
 
         public int Width { get; set; }
         public int Height { get; set; }
+        public bool PreviewMode { get; set; } = false;
 
         public Robot(float X, float Y, int Width, int Height)
         {
@@ -77,7 +78,7 @@ namespace Build_A_Bot
             if (FollowMouse) BallUpdate();
 
             // cel za sledenje
-            Vector2 target = FollowMouse ? new Vector2(X, Y) : Ball.Pos();
+            Vector2 target = FollowMouse || PreviewMode ? new Vector2(X, Y) : Ball.Pos();
             Segment s;
             for (int i = Length -1; i >= 0; i--)
             {
@@ -124,7 +125,7 @@ namespace Build_A_Bot
         {
             g.SmoothingMode = SmoothingMode.AntiAlias; // Poubav izgled
 
-            if (!FollowMouse)
+            if (!FollowMouse && !PreviewMode)
                 Ball.Show(g);
 
             foreach (Segment seg in Segments)

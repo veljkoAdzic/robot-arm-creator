@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BuilderMenu));
-            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.lbSegments = new System.Windows.Forms.ListBox();
             this.nudLength = new System.Windows.Forms.NumericUpDown();
             this.label1 = new System.Windows.Forms.Label();
             this.colorDialog = new System.Windows.Forms.ColorDialog();
@@ -43,13 +43,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudLength)).BeginInit();
             this.SuspendLayout();
             // 
-            // listBox1
+            // lbSegments
             // 
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(21, 176);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(194, 212);
-            this.listBox1.TabIndex = 0;
+            this.lbSegments.FormattingEnabled = true;
+            this.lbSegments.Location = new System.Drawing.Point(21, 176);
+            this.lbSegments.Name = "lbSegments";
+            this.lbSegments.Size = new System.Drawing.Size(194, 212);
+            this.lbSegments.TabIndex = 0;
             // 
             // nudLength
             // 
@@ -148,6 +148,7 @@
             this.pnlPreview.Size = new System.Drawing.Size(352, 358);
             this.pnlPreview.TabIndex = 10;
             this.pnlPreview.Paint += new System.Windows.Forms.PaintEventHandler(this.pnlPreview_Paint);
+            this.pnlPreview.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pnlPreview_MouseMove);
             // 
             // BuilderMenu
             // 
@@ -163,7 +164,7 @@
             this.Controls.Add(this.btnColour);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.nudLength);
-            this.Controls.Add(this.listBox1);
+            this.Controls.Add(this.lbSegments);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "BuilderMenu";
             this.Text = "Мени за креација";
@@ -176,7 +177,7 @@
 
         #endregion
 
-        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.ListBox lbSegments;
         private System.Windows.Forms.NumericUpDown nudLength;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ColorDialog colorDialog;

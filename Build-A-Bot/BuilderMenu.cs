@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -20,8 +21,7 @@ namespace Build_A_Bot
             InitializeComponent();
             this.EditingRobot = new Robot(pnlPreview.Width/2, pnlPreview.Height - 50, pnlPreview.Width, pnlPreview.Height);
             this.Modified = false;
-            this.SelectedColour = Color.FromArgb(205, 140, 25);
-            
+
         }
 
         public BuilderMenu(Robot r)
@@ -31,10 +31,7 @@ namespace Build_A_Bot
             this.EditingRobot = new Robot(pnlPreview.Width / 2, pnlPreview.Height - 50, pnlPreview.Width, pnlPreview.Height);
             
             this.EditingRobot.BuildFrom(r.Segments, true);
-            
 
-            
-            
             this.Modified = false;
         }
 
@@ -58,7 +55,26 @@ namespace Build_A_Bot
 
         private void BuilderMenu_Load(object sender, EventArgs e)
         {
-            btnColour.BackColor = SelectedColour;
+            // StackOverflow is a godsent
+            typeof(Panel).InvokeMember("DoubleBuffered", 
+                BindingFlags.SetProperty | BindingFlags.Instance | 
+                BindingFlags.NonPublic, null, pnlPreview, new object[] {true});
+
+            this.SelectedColour = Segment.DEFAULT_COLOUR;
+            this.EditingRobot.PreviewMode = true;
+
+            foreach (var seg in EditingRobot.Segments)
+            {
+                lbSegments.Items.Add(seg);
+            }
+
+        }
+
+        private void pnlPreview_MouseMove(object sender, MouseEventArgs e)
+        {
+            this.EditingRobot.FollowMouse = false;
+            this.EditingRobot.Update(e.X, e.Y);
+            pnlPreview.Invalidate();
         }
     }
 }
