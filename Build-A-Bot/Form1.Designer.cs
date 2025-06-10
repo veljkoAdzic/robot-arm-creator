@@ -33,10 +33,10 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.toolStrip = new System.Windows.Forms.ToolStrip();
             this.tsbNew = new System.Windows.Forms.ToolStripButton();
+            this.tsbSaveAs = new System.Windows.Forms.ToolStripButton();
             this.tsbSave = new System.Windows.Forms.ToolStripButton();
             this.tsbLoad = new System.Windows.Forms.ToolStripButton();
             this.tsbBuild = new System.Windows.Forms.ToolStripButton();
-            this.tsbSaveAs = new System.Windows.Forms.ToolStripButton();
             this.toolStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -70,6 +70,17 @@
             this.tsbNew.Size = new System.Drawing.Size(24, 24);
             this.tsbNew.Text = "Креирај ново";
             this.tsbNew.ToolTipText = "Креирај ново";
+            this.tsbNew.Click += new System.EventHandler(this.tsbNew_Click);
+            // 
+            // tsbSaveAs
+            // 
+            this.tsbSaveAs.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tsbSaveAs.Image = ((System.Drawing.Image)(resources.GetObject("tsbSaveAs.Image")));
+            this.tsbSaveAs.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbSaveAs.Name = "tsbSaveAs";
+            this.tsbSaveAs.Size = new System.Drawing.Size(24, 24);
+            this.tsbSaveAs.Text = "Зачувај како";
+            this.tsbSaveAs.Click += new System.EventHandler(this.tsbSaveAs_Click);
             // 
             // tsbSave
             // 
@@ -103,16 +114,6 @@
             this.tsbBuild.Text = "Промени робот";
             this.tsbBuild.ToolTipText = "Промени робот";
             this.tsbBuild.Click += new System.EventHandler(this.tsbBuild_Click);
-            // 
-            // tsbSaveAs
-            // 
-            this.tsbSaveAs.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbSaveAs.Image = ((System.Drawing.Image)(resources.GetObject("tsbSaveAs.Image")));
-            this.tsbSaveAs.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsbSaveAs.Name = "tsbSaveAs";
-            this.tsbSaveAs.Size = new System.Drawing.Size(24, 24);
-            this.tsbSaveAs.Text = "Зачувај како";
-            this.tsbSaveAs.Click += new System.EventHandler(this.tsbSaveAs_Click);
             // 
             // Form1
             // 

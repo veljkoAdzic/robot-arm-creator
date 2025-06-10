@@ -26,18 +26,14 @@ namespace Build_A_Bot
             this.MaximizeBox = false;
 
             Rob = new Robot(this.Width / 2, this.Height - 100, this.Width, this.Height);
-
-            // For testing
-            for (double len = 100; len > 60; len -= 15)
-                Rob.AddSegment(len);//, -95.0, 95.0);
-
-            this.FileLocation = null;
-            this.Modified = true;
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
+            this.FileLocation = Application.StartupPath + "\\Assets\\DefaultRobot.rarm";
+            loadFromFile();
+            this.FileLocation = null;
+            this.Modified = false;
         }
 
         private void Form1_Paint(object sender, PaintEventArgs e)
@@ -81,11 +77,60 @@ namespace Build_A_Bot
             this.FileLocation = null;
             saveToFile();
         }
+        private void tsbNew_Click(object sender, EventArgs e)
+        {
+            if (this.Modified)
+            {
+
+                DialogResult ans = MessageBox.Show(
+                    "Не се зачувани промени! Дали сакате да зачувате?",
+                    "Не зачувана работа",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question
+                    );
+                if (ans == DialogResult.OK) saveToFile();
+            }
+
+            BuilderMenu menu = new BuilderMenu();
+            timer1.Stop();
+            if (menu.ShowDialog() == DialogResult.OK && menu.Modified)
+            {
+                this.Modified = true;
+                this.FileLocation = null;
+                this.Rob.BuildFrom(menu.EditingRobot.Segments, true);
+            }
+            timer1.Start();
+
+        }
         private void tsbLoad_Click(object sender, EventArgs e)
         {
+            if (this.Modified)
+            {
+                
+                DialogResult ans = MessageBox.Show(
+                    "Не се зачувани промени! Дали сакате да зачувате?", 
+                    "Не зачувана работа", 
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question
+                    );
+                if (ans == DialogResult.OK) saveToFile();
+            }
             this.FileLocation = null;
             loadFromFile();
             Invalidate();
+        }
+
+        private void tsbBuild_Click(object sender, EventArgs e)
+        {
+            BuilderMenu menu = new BuilderMenu(this.Rob);
+            timer1.Stop();
+            if (menu.ShowDialog() == DialogResult.OK && menu.Modified)
+            {
+                this.Modified = this.Modified || menu.Modified;
+                this.Rob.BuildFrom(menu.EditingRobot.Segments, true);
+            }
+            timer1.Start();
+
         }
 
         private void saveToFile()
@@ -100,16 +145,17 @@ namespace Build_A_Bot
                     FileLocation = sfd.FileName;
                 }
 
-                if( FileLocation != null)
-                {
-                    using(FileStream fs = new FileStream(FileLocation, FileMode.OpenOrCreate))
-                    {
-                        IFormatter ifmt = new BinaryFormatter();
-                        ifmt.Serialize(fs, this.Rob.Segments);
-                    }
+            }
 
-                    this.Modified = false;
+            if( FileLocation != null)
+            {
+                using(FileStream fs = new FileStream(FileLocation, FileMode.OpenOrCreate))
+                {
+                    IFormatter ifmt = new BinaryFormatter();
+                    ifmt.Serialize(fs, this.Rob.Segments);
                 }
+
+                this.Modified = false;
             }
 
         }
@@ -147,17 +193,5 @@ namespace Build_A_Bot
             }
         }
 
-        private void tsbBuild_Click(object sender, EventArgs e)
-        {
-            BuilderMenu menu = new BuilderMenu(this.Rob);
-            timer1.Stop();
-            if(menu.ShowDialog() == DialogResult.OK && menu.Modified) 
-            {
-                this.Modified = this.Modified || menu.Modified;
-                this.Rob.BuildFrom(menu.EditingRobot.Segments, true);
-            }
-            timer1.Start();
-            
-        }
     }
 }
