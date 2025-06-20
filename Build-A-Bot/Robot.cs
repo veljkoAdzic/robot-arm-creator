@@ -60,6 +60,7 @@ namespace Build_A_Bot
 
         public void BallUpdate()
         {
+            if (this.Length == 0) return;
             Vector2  end = Segments.Last().end;
             Ball.X = end.X;
             Ball.Y = end.Y; // Math.Min(end.Y, Width - Ball.Radius);
@@ -116,6 +117,7 @@ namespace Build_A_Bot
                 }
             }
 
+            if (this.Length == 0) return;
             Segment last = Segments.Last();
             Ball.X = last.end.X;
             Ball.Y = last.end.Y;
