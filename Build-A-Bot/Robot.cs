@@ -140,6 +140,25 @@ namespace Build_A_Bot
             {
                 seg.Show(g);
             }
+
+            Color c = Color.FromArgb(108, 110, 111);
+            Brush b = new SolidBrush(c);
+
+            int Rad = 20;
+            g.FillEllipse(b, Base.X - Rad, Base.Y - Rad, Rad * 2, Rad * 2);
+
+            //g.FillRectangle(b, Base.X - Rad * 3, Base.Y, Rad * 6, Rad * 6);
+            Point[] points = { 
+                new Point((int)(Base.X-Rad*3), this.Width + 50),
+                new Point((int)(Base.X-Rad*3), (int)(Base.Y+20)),
+                new Point((int)(Base.X-Rad*1.5), (int)(Base.Y)),
+                new Point((int)(Base.X+Rad*1.5), (int)(Base.Y)),
+                new Point((int)(Base.X+Rad*3), (int)(Base.Y+20)),
+                new Point((int)(Base.X+Rad*3), this.Width + 50)
+            };
+            g.FillPolygon(b, points);
+
+            b.Dispose();
         }
     }
 }
