@@ -124,6 +124,9 @@ namespace Build_A_Bot
 
             p.Dispose();
 
+            if (this.len < segWidth*2) return;
+
+            // Iscrtuvanje na zglob
             segWidth *= 0.55f;
             Brush b = new SolidBrush(Color.FromArgb(98, 100, 102));
             g.FillEllipse(b, pos.X - segWidth, pos.Y - segWidth, segWidth * 2, segWidth * 2);

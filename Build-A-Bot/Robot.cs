@@ -135,21 +135,23 @@ namespace Build_A_Bot
         {
             g.SmoothingMode = SmoothingMode.AntiAlias; // Poubav izgled
 
+            // Iscrtuvanje topche
             if (!FollowMouse && !PreviewMode)
                 Ball.Show(g);
 
+            // Iscrtuvanje segmenti
             foreach (Segment seg in Segments)
             {
                 seg.Show(g);
             }
 
+            // Iscrtuvanje baza na robotska raka
             Color c = Color.FromArgb(108, 110, 111);
             Brush b = new SolidBrush(c);
 
             int Rad = 20;
             g.FillEllipse(b, Base.X - Rad, Base.Y - Rad, Rad * 2, Rad * 2);
 
-            //g.FillRectangle(b, Base.X - Rad * 3, Base.Y, Rad * 6, Rad * 6);
             Point[] points = { 
                 new Point((int)(Base.X-Rad*3), this.Width + 50),
                 new Point((int)(Base.X-Rad*3), (int)(Base.Y+20)),
