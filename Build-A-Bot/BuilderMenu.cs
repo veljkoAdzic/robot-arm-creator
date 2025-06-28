@@ -122,6 +122,7 @@ namespace Build_A_Bot
             Segment tmp = lbSegments.Items[ind] as Segment;
             lbSegments.Items.RemoveAt(ind);
             lbSegments.Items.Insert(ind - 1, tmp);
+            lbSegments.SelectedIndex = ind - 1;
 
             ind = EditingRobot.Length - ind - 1; // Inverzija na indeks
             
@@ -146,6 +147,7 @@ namespace Build_A_Bot
             Segment tmp = lbSegments.Items[ind] as Segment;
             lbSegments.Items.RemoveAt(ind);
             lbSegments.Items.Insert(ind + 1, tmp);
+            lbSegments.SelectedIndex = ind + 1;
 
             ind = EditingRobot.Length - ind - 1; // Inverzija na indeks
 
@@ -170,6 +172,11 @@ namespace Build_A_Bot
 
         private void btnSave_Click(object sender, EventArgs e)
         {
+            if(this.EditingRobot.Length == 0)
+            {
+                MessageBox.Show("Роботска рака мора да се состои од барем 1 сегмент!", "Невалиден робот", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
             Form1 f = Parent as Form1;
             DialogResult = DialogResult.OK;
         }

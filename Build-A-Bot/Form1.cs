@@ -25,7 +25,7 @@ namespace Build_A_Bot
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
 
-            Rob = new Robot(this.Width / 2, this.Height - 100, this.Width, this.Height);
+            Rob = new Robot(this.Width / 2, this.Height - 50, this.Width, this.Height);
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -34,6 +34,14 @@ namespace Build_A_Bot
             loadFromFile();
             this.FileLocation = null;
             this.Modified = false;
+
+            //this.Modified = true;
+            //List<Segment> segs = Rob.Segments;
+            //    Rob = new Robot(this.Width / 2, this.Height - 70, this.Width, this.Height);
+            //foreach (var item in segs)
+            //{
+            //    Rob.AddSegment(item.len, item.Colour);
+            //}
         }
 
         private void Form1_Paint(object sender, PaintEventArgs e)

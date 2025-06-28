@@ -60,6 +60,7 @@ namespace Build_A_Bot
 
         public void BallUpdate()
         {
+            if (this.Length == 0) return;
             Vector2  end = Segments.Last().end;
             Ball.X = end.X;
             Ball.Y = end.Y; // Math.Min(end.Y, Width - Ball.Radius);
@@ -116,6 +117,7 @@ namespace Build_A_Bot
                 }
             }
 
+            if (this.Length == 0) return;
             Segment last = Segments.Last();
             Ball.X = last.end.X;
             Ball.Y = last.end.Y;
@@ -133,13 +135,34 @@ namespace Build_A_Bot
         {
             g.SmoothingMode = SmoothingMode.AntiAlias; // Poubav izgled
 
+            // Iscrtuvanje topche
             if (!FollowMouse && !PreviewMode)
                 Ball.Show(g);
 
+            // Iscrtuvanje segmenti
             foreach (Segment seg in Segments)
             {
                 seg.Show(g);
             }
+
+            // Iscrtuvanje baza na robotska raka
+            Color c = Color.FromArgb(108, 110, 111);
+            Brush b = new SolidBrush(c);
+
+            int Rad = 20;
+            g.FillEllipse(b, Base.X - Rad, Base.Y - Rad, Rad * 2, Rad * 2);
+
+            Point[] points = { 
+                new Point((int)(Base.X-Rad*3), this.Width + 50),
+                new Point((int)(Base.X-Rad*3), (int)(Base.Y+20)),
+                new Point((int)(Base.X-Rad*1.5), (int)(Base.Y)),
+                new Point((int)(Base.X+Rad*1.5), (int)(Base.Y)),
+                new Point((int)(Base.X+Rad*3), (int)(Base.Y+20)),
+                new Point((int)(Base.X+Rad*3), this.Width + 50)
+            };
+            g.FillPolygon(b, points);
+
+            b.Dispose();
         }
     }
 }

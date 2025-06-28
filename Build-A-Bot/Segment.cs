@@ -107,18 +107,35 @@ namespace Build_A_Bot
         public void Show(Graphics g)
         {
             // iscrtuvanje na segment
-            Pen p = new Pen(this.Colour, 10.0f);
+            Color bgColour = Color.FromArgb(230, 230, 230);
+            float segWidth = 20.0f;
+
+
+            Pen p = new Pen(this.Colour, segWidth);
             p.StartCap = System.Drawing.Drawing2D.LineCap.Round;
             p.EndCap = System.Drawing.Drawing2D.LineCap.Triangle;
 
-            //p.Color = Color.FromArgb(179, 121, 21);
-            //p.Width = 12.0f;
-            //g.DrawLine(p, pos.X, pos.Y, end.X, end.Y);
-
-            //p.Color = Color.FromArgb(205, 140, 25);
-            //p.Width = 8.0f;
             g.DrawLine(p, pos.X, pos.Y, end.X, end.Y);
+
+            p.Color = bgColour;
+            p.Width = segWidth*0.4f;
+            p.StartCap = System.Drawing.Drawing2D.LineCap.Triangle;
+            g.DrawLine(p, pos.X, pos.Y, end.X, end.Y);
+
             p.Dispose();
+
+            if (this.len < segWidth*2) return;
+
+            // Iscrtuvanje na zglob
+            segWidth *= 0.55f;
+            Brush b = new SolidBrush(Color.FromArgb(98, 100, 102));
+            g.FillEllipse(b, pos.X - segWidth, pos.Y - segWidth, segWidth * 2, segWidth * 2);
+
+            segWidth *= 0.35f;
+            b = new SolidBrush(this.Colour);
+            g.FillEllipse(b, pos.X - segWidth, pos.Y - segWidth, segWidth * 2, segWidth * 2);
+
+            b.Dispose();
         }
 
         private double Constrain(double value, double min, double max)
