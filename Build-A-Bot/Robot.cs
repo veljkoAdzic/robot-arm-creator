@@ -23,8 +23,9 @@ namespace Build_A_Bot
         public int Width { get; set; }
         public int Height { get; set; }
         public bool PreviewMode { get; set; } = false;
-
-        public Robot(float X, float Y, int Width, int Height)
+        public Effector EndEffector { get; set; }
+        public List<Segment> AllSegments { get; set; }
+        public Robot(float X, float Y, int Width, int Height, EffectorType et = EffectorType.Grabber)
         {
             this.Length = 0;
             this.Width = Width - 15;
@@ -33,6 +34,9 @@ namespace Build_A_Bot
             this.Base = new Vector2(X, Y);
             this.FollowMouse = true;
             this.Ball = new DummyBall(X, Y, 45);
+            this.EndEffector = new Effector(this.Base, et);
+            this.AllSegments = new List<Segment>(1);
+            this.AllSegments.Add(this.EndEffector);
         }
 
         public void AddSegment(double len, Color? c = null)
@@ -51,20 +55,19 @@ namespace Build_A_Bot
                 );
             }
 
-            Vector2  end = Segments.Last().end;
-            Ball.X = end.X;
-            Ball.Y = end.Y;
+            EndEffector.Rebase(Segments.Last().end);
+            this.BallUpdate();
+
+            this.AllSegments = new List<Segment>(this.Segments);
+            this.AllSegments.Add(this.EndEffector);
 
             Length++;
         }
 
         public void BallUpdate()
         {
-            if (this.Length == 0) return;
-            Vector2  end = Segments.Last().end;
-            Ball.X = end.X;
-            Ball.Y = end.Y; // Math.Min(end.Y, Width - Ball.Radius);
-            //Ball.Update(Widht, Height);
+            Ball.X = EndEffector.end.X;
+            Ball.Y = EndEffector.end.Y;
         }
         
         public void Update()
@@ -73,7 +76,7 @@ namespace Build_A_Bot
         }
         public void Update(float X, float Y)
         {
-            if (Length == 0) return;
+            //if (Length == 0) return
 
             this.FollowMouse = X > 0 && X < Width && Y > 0 && Y < Height;
             if (FollowMouse) BallUpdate();
@@ -81,16 +84,16 @@ namespace Build_A_Bot
             // cel za sledenje
             Vector2 target = FollowMouse || PreviewMode ? new Vector2(X, Y) : Ball.Pos();
             Segment s;
-            for (int i = Length -1; i >= 0; i--)
+            for (int i = Length; i >= 0; i--)
             {
-                s = Segments[i];
+                s = AllSegments[i];
                 s.target(target.X, target.Y);
                 target = s.pos;  // da bidat povrzani segmenti
             }
 
             // Da ne se pomestuvaat od bazata
             Vector2 b = Base;
-            foreach (Segment seg in Segments)
+            foreach (Segment seg in AllSegments)
             {
                 seg.Rebase(b);
                 b = seg.end;
@@ -106,7 +109,7 @@ namespace Build_A_Bot
             {
                 this.Segments = segs;
                 this.Length = this.Segments.Count;
-                this.Base = new Vector2(segs[0].pos.X, segs[0].pos.Y);
+                this.Base = new Vector2(segs[0].pos.X, segs[0].pos.Y);       
             } else
             {
                 this.Segments.Clear();
@@ -117,16 +120,18 @@ namespace Build_A_Bot
                 }
             }
 
-            if (this.Length == 0) return;
-            Segment last = Segments.Last();
-            Ball.X = last.end.X;
-            Ball.Y = last.end.Y;
+            this.BallUpdate();
+
+            this.AllSegments = new List<Segment>(segs);
+            this.AllSegments.Add(this.EndEffector);
         }
 
         public void RemoveSegement(int index)
         {
             Vector2 end = Segments.Last().end;
             Segments.RemoveAt(index);
+            this.AllSegments = new List<Segment>(Segments);
+            this.AllSegments.Add(EndEffector);
             this.Length--;
             this.Update(end.X, end.Y);
         }
@@ -144,6 +149,8 @@ namespace Build_A_Bot
             {
                 seg.Show(g);
             }
+
+            this.EndEffector.Show(g);
 
             // Iscrtuvanje baza na robotska raka
             Color c = Color.FromArgb(108, 110, 111);
