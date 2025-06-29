@@ -42,13 +42,15 @@
             this.pnlPreview = new System.Windows.Forms.Panel();
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
+            this.cbEffector = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.nudLength)).BeginInit();
             this.SuspendLayout();
             // 
             // lbSegments
             // 
             this.lbSegments.FormattingEnabled = true;
-            this.lbSegments.Location = new System.Drawing.Point(21, 176);
+            this.lbSegments.Location = new System.Drawing.Point(21, 217);
             this.lbSegments.Name = "lbSegments";
             this.lbSegments.Size = new System.Drawing.Size(194, 212);
             this.lbSegments.TabIndex = 0;
@@ -113,7 +115,7 @@
             // 
             // btnAdd
             // 
-            this.btnAdd.Location = new System.Drawing.Point(21, 102);
+            this.btnAdd.Location = new System.Drawing.Point(21, 143);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(237, 20);
             this.btnAdd.TabIndex = 5;
@@ -123,7 +125,7 @@
             // 
             // btnUp
             // 
-            this.btnUp.Location = new System.Drawing.Point(228, 249);
+            this.btnUp.Location = new System.Drawing.Point(228, 290);
             this.btnUp.Name = "btnUp";
             this.btnUp.Size = new System.Drawing.Size(30, 30);
             this.btnUp.TabIndex = 6;
@@ -133,7 +135,7 @@
             // 
             // btnDown
             // 
-            this.btnDown.Location = new System.Drawing.Point(228, 285);
+            this.btnDown.Location = new System.Drawing.Point(228, 326);
             this.btnDown.Name = "btnDown";
             this.btnDown.Size = new System.Drawing.Size(30, 30);
             this.btnDown.TabIndex = 7;
@@ -143,7 +145,7 @@
             // 
             // btnDelete
             // 
-            this.btnDelete.Location = new System.Drawing.Point(21, 147);
+            this.btnDelete.Location = new System.Drawing.Point(21, 187);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(237, 20);
             this.btnDelete.TabIndex = 9;
@@ -156,14 +158,14 @@
             this.pnlPreview.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pnlPreview.Location = new System.Drawing.Point(336, 30);
             this.pnlPreview.Name = "pnlPreview";
-            this.pnlPreview.Size = new System.Drawing.Size(335, 343);
+            this.pnlPreview.Size = new System.Drawing.Size(335, 367);
             this.pnlPreview.TabIndex = 10;
             this.pnlPreview.Paint += new System.Windows.Forms.PaintEventHandler(this.pnlPreview_Paint);
             this.pnlPreview.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pnlPreview_MouseMove);
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(506, 379);
+            this.btnCancel.Location = new System.Drawing.Point(506, 403);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(165, 26);
             this.btnCancel.TabIndex = 12;
@@ -173,7 +175,7 @@
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(336, 379);
+            this.btnSave.Location = new System.Drawing.Point(336, 403);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(165, 26);
             this.btnSave.TabIndex = 11;
@@ -181,11 +183,30 @@
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(18, 106);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(75, 13);
+            this.label3.TabIndex = 13;
+            this.label3.Text = "Тип ефектор:";
+            // 
+            // cbEffector
+            // 
+            this.cbEffector.FormattingEnabled = true;
+            this.cbEffector.Location = new System.Drawing.Point(113, 103);
+            this.cbEffector.Name = "cbEffector";
+            this.cbEffector.Size = new System.Drawing.Size(145, 21);
+            this.cbEffector.TabIndex = 14;
+            // 
             // BuilderMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(711, 450);
+            this.ClientSize = new System.Drawing.Size(711, 463);
+            this.Controls.Add(this.cbEffector);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.pnlPreview);
@@ -223,5 +244,7 @@
         private System.Windows.Forms.Panel pnlPreview;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Button btnSave;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.ComboBox cbEffector;
     }
 }

@@ -103,7 +103,7 @@ namespace Build_A_Bot
 
         }
 
-        public void BuildFrom(List<Segment> segs, bool Rebase = false)
+        public void BuildFrom(List<Segment> segs, Effector ef, bool Rebase = false)
         {
             if (!Rebase)
             {
@@ -120,10 +120,11 @@ namespace Build_A_Bot
                 }
             }
 
-            this.BallUpdate();
-
-            this.AllSegments = new List<Segment>(segs);
+            this.EndEffector = ef;
+            this.AllSegments = new List<Segment>(this.Segments);
             this.AllSegments.Add(this.EndEffector);
+
+            this.BallUpdate();
         }
 
         public void RemoveSegement(int index)

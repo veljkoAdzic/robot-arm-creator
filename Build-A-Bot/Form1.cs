@@ -105,7 +105,7 @@ namespace Build_A_Bot
             {
                 this.Modified = true;
                 this.FileLocation = null;
-                this.Rob.BuildFrom(menu.EditingRobot.Segments, true);
+                this.Rob.BuildFrom(menu.EditingRobot.Segments, menu.EditingRobot.EndEffector, true);
             }
             timer1.Start();
 
@@ -135,7 +135,7 @@ namespace Build_A_Bot
             if (menu.ShowDialog() == DialogResult.OK && menu.Modified)
             {
                 this.Modified = this.Modified || menu.Modified;
-                this.Rob.BuildFrom(menu.EditingRobot.Segments, true);
+                this.Rob.BuildFrom(menu.EditingRobot.Segments, menu.EditingRobot.EndEffector, true);
             }
             timer1.Start();
 
@@ -191,8 +191,8 @@ namespace Build_A_Bot
                         IFormatter fmt = new BinaryFormatter();
                         segs = (List<Segment>) fmt.Deserialize(fs);
                     }
-
-                    this.Rob.BuildFrom(segs);
+                    // TODO FIX!!!!
+                    this.Rob.BuildFrom(segs, new Effector(segs.Last().end) );
                     this.Modified = false;
                 } catch (Exception)
                 {

@@ -34,7 +34,7 @@ namespace Build_A_Bot
 
             this.EditingRobot = new Robot(pnlPreview.Width / 2, pnlPreview.Height - 50, pnlPreview.Width, pnlPreview.Height);
             
-            this.EditingRobot.BuildFrom(r.Segments, true);
+            this.EditingRobot.BuildFrom(r.Segments, r.EndEffector, true);
 
             this.Modified = false;
 
@@ -79,6 +79,15 @@ namespace Build_A_Bot
             {
                 lbSegments.Items.Add(seg);
             }
+
+            // Efektor combo box posavuvanje
+            cbEffector.Items.Clear();
+            foreach (EffectorType item in Enum.GetValues(typeof(EffectorType)))
+            { 
+                cbEffector.Items.Add(item);
+            }
+
+            cbEffector.SelectedItem = EditingRobot.EndEffector.Type;
 
         }
 
