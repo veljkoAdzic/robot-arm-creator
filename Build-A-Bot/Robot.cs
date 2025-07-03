@@ -6,25 +6,33 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Numerics;
+using System.Runtime.Serialization;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Build_A_Bot
 {
-    public class Robot
+   // [Serializable]
+    public class Robot //: ISerializable
     {
         public List<Segment> Segments { get; set; }
         public int Length { get; set; }
+        [JsonConverter(typeof(JsonVec2Converter))]
         public Vector2 Base { get; set; }
         public bool FollowMouse { get; set; }
+        [JsonIgnore]
         public DummyBall Ball { get; set; }
 
         public int Width { get; set; }
         public int Height { get; set; }
         public bool PreviewMode { get; set; } = false;
         public Effector EndEffector { get; set; }
+        [JsonIgnore]
         public List<Segment> AllSegments { get; set; }
+
+        public Robot() { }
         public Robot(float X, float Y, int Width, int Height, EffectorType et = EffectorType.Grabber)
         {
             this.Length = 0;
@@ -69,7 +77,7 @@ namespace Build_A_Bot
             Ball.X = EndEffector.end.X;
             Ball.Y = EndEffector.end.Y;
         }
-        
+
         public void Update()
         {
             this.Update(-100, -100);
@@ -109,8 +117,9 @@ namespace Build_A_Bot
             {
                 this.Segments = segs;
                 this.Length = this.Segments.Count;
-                this.Base = new Vector2(segs[0].pos.X, segs[0].pos.Y);       
-            } else
+                this.Base = new Vector2(segs[0].pos.X, segs[0].pos.Y);
+            }
+            else
             {
                 this.Segments.Clear();
                 this.Length = 0;
@@ -160,7 +169,7 @@ namespace Build_A_Bot
             int Rad = 20;
             g.FillEllipse(b, Base.X - Rad, Base.Y - Rad, Rad * 2, Rad * 2);
 
-            Point[] points = { 
+            Point[] points = {
                 new Point((int)(Base.X-Rad*3), this.Width + 50),
                 new Point((int)(Base.X-Rad*3), (int)(Base.Y+20)),
                 new Point((int)(Base.X-Rad*1.5), (int)(Base.Y)),

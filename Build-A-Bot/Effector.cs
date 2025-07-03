@@ -21,6 +21,7 @@ namespace Build_A_Bot
         public bool Active { get; set; }
         public EffectorType Type { get; set; }
 
+        public Effector() : base() { }
         public Effector(Vector2 pos, EffectorType Type = EffectorType.Grabber)
         :base(pos, 50.0, 0, -360.0, 360.0)
         {

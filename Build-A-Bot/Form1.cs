@@ -9,8 +9,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Numerics;
 using System.IO;
-using System.Runtime.Serialization;
-using System.Runtime.Serialization.Formatters.Binary;
+using System.Text.Json;
+
 namespace Build_A_Bot
 {
     public partial class Form1 : Form
@@ -37,10 +37,10 @@ namespace Build_A_Bot
 
             //this.Modified = true;
             //List<Segment> segs = Rob.Segments;
-            //    Rob = new Robot(this.Width / 2, this.Height - 70, this.Width, this.Height);
-            //foreach (var item in segs)
+            //Rob = new Robot(this.Width / 2, this.Height - 70, this.Width, this.Height);
+            //for(int len = 80; len >= 50; len -= 15)
             //{
-            //    Rob.AddSegment(item.len, item.Colour);
+            //    Rob.AddSegment(len);
             //}
         }
 
@@ -157,10 +157,9 @@ namespace Build_A_Bot
 
             if( FileLocation != null)
             {
-                using(FileStream fs = new FileStream(FileLocation, FileMode.OpenOrCreate))
+                using(FileStream fs = new FileStream(FileLocation, FileMode.OpenOrCreate, FileAccess.Write))
                 {
-                    IFormatter ifmt = new BinaryFormatter();
-                    ifmt.Serialize(fs, this.Rob.Segments);
+                    JsonSerializer.Serialize<Robot>(fs, this.Rob);
                 }
 
                 this.Modified = false;
@@ -185,18 +184,16 @@ namespace Build_A_Bot
             {
                 try
                 {
-                    List<Segment> segs;
-                    using (FileStream fs = new FileStream(FileLocation, FileMode.Open))
+                    Robot newRob;
+                    using (FileStream fs = new FileStream(FileLocation, FileMode.Open, FileAccess.Read))
                     {
-                        IFormatter fmt = new BinaryFormatter();
-                        segs = (List<Segment>) fmt.Deserialize(fs);
+                        newRob = JsonSerializer.Deserialize<Robot>(fs);
                     }
-                    // TODO FIX!!!!
-                    this.Rob.BuildFrom(segs, new Effector(segs.Last().end) );
+                    this.Rob.BuildFrom(newRob.Segments, newRob.EndEffector);
                     this.Modified = false;
-                } catch (Exception)
+                } catch (Exception e)
                 {
-                    //
+                    MessageBox.Show(e.Message);
                 }
             }
         }

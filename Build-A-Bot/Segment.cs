@@ -6,14 +6,18 @@ using System.Numerics;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Build_A_Bot
 {
-    [Serializable]
-    public class Segment : ISerializable
+    //[Serializable]
+    public class Segment //: ISerializable
     {
+        [JsonConverter(typeof(JsonVec2Converter))]
         public Vector2 pos { get; set; }
+        [JsonConverter(typeof(JsonVec2Converter))]
         public Vector2 end { get; set; }
         public double angle { get; set; }
         public double len { get; set; }
@@ -22,10 +26,12 @@ namespace Build_A_Bot
         public double range_max { get; set; }
 
         public static double OFFSET = (-90 * Math.PI / 180);
-
+        [JsonIgnore]
         public static Color DEFAULT_COLOUR = Color.FromArgb(205, 140, 25);
+        [JsonConverter(typeof(JsonColorConverter))]
         public Color Colour { get; set; }
 
+        public Segment() {}
         public Segment(Vector2 pos, double len, double ang_deg, double range_min, double range_max, Color? c = null)
         {
             this.pos = pos;
@@ -146,35 +152,35 @@ namespace Build_A_Bot
                 return min;
         }
 
-        public void GetObjectData(SerializationInfo info, StreamingContext context)
-        {
-            info.AddValue("PosX", pos.X);
-            info.AddValue("PosY", pos.Y);
+        //public void GetObjectData(SerializationInfo info, StreamingContext context)
+        //{
+        //    info.AddValue("PosX", (double)pos.X);
+        //    info.AddValue("PosY", (double)pos.Y);
 
-            info.AddValue("EndX", end.X);
-            info.AddValue("EndY", end.Y);
+        //    info.AddValue("EndX", (double)end.X);
+        //    info.AddValue("EndY", (double)end.Y);
 
-            info.AddValue("Angle", angle);
-            info.AddValue("Len", len);
-            info.AddValue("Change", change);
-            info.AddValue("RangeMin", range_min);
-            info.AddValue("RangeMax", range_max);
-            info.AddValue("Colour", Colour.ToArgb());
+        //    info.AddValue("Angle", angle);
+        //    info.AddValue("Len", len);
+        //    info.AddValue("Change", change);
+        //    info.AddValue("RangeMin", range_min);
+        //    info.AddValue("RangeMax", range_max);
+        //    info.AddValue("Colour", Colour.ToArgb());
 
-        }
+        //}
 
-        private Segment(SerializationInfo info, StreamingContext context)
-        {
-            this.pos = new Vector2((float)info.GetDouble("PosX"), (float)info.GetDouble("PosY"));
-            this.end = new Vector2((float)info.GetDouble("EndX"), (float)info.GetDouble("EndY"));
+        //protected Segment(SerializationInfo info, StreamingContext context)
+        //{
+        //    this.pos = new Vector2((float)info.GetDouble("PosX"), (float)info.GetDouble("PosY"));
+        //    this.end = new Vector2((float)info.GetDouble("EndX"), (float)info.GetDouble("EndY"));
 
-            this.angle = info.GetDouble("Angle");
-            this.len = info.GetDouble("Len");
-            this.change = info.GetDouble("Change");
-            this.range_min = info.GetDouble("RangeMin");
-            this.range_max = info.GetDouble("RangeMax");
-            this.Colour = Color.FromArgb( info.GetInt32("Colour") );
-        }
+        //    this.angle = info.GetDouble("Angle");
+        //    this.len = info.GetDouble("Len");
+        //    this.change = info.GetDouble("Change");
+        //    this.range_min = info.GetDouble("RangeMin");
+        //    this.range_max = info.GetDouble("RangeMax");
+        //    this.Colour = Color.FromArgb( info.GetInt32("Colour") );
+        //}
 
         override public String ToString()
         {
