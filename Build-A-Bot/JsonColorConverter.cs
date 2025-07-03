@@ -9,6 +9,10 @@ using System.Threading.Tasks;
 
 namespace Build_A_Bot
 {
+    /*
+     * Klasa za konverzija na Color vo JSON i obratno 
+     * Color se pretvara vo JSON objekt so parametar "ARGB"
+     */
     public class JsonColorConverter : JsonConverter<Color>
     {
         public override Color Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)

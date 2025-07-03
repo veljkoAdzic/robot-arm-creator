@@ -9,6 +9,10 @@ using System.Threading.Tasks;
 
 namespace Build_A_Bot
 {
+    /*
+     * Klasa za konverzija na Vector2 vo JSON i obratno
+     * Vector2 se pretvara vo JSON objekt so atributi "X" i "Y"
+     */
     public class JsonVec2Converter : JsonConverter<Vector2>
     {
         public override Vector2 Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
