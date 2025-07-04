@@ -31,12 +31,51 @@ namespace Build_A_Bot
 
         public void Show(Graphics g)
         {
-            // TODO
-            Pen p = new Pen(this.Colour, 15.0f);
+            Color jointColour = Color.FromArgb(98, 100, 102);
+            float jointWidth = 18.0f;
+            Pen p = new Pen(this.Colour, 10.0f);
+            p.EndCap = System.Drawing.Drawing2D.LineCap.Triangle;
+            Brush b = new SolidBrush(jointColour);
 
-            g.DrawLine(p, this.pos.X, this.pos.Y, this.end.X, this.end.Y);
+            switch (this.Type)
+            {
+                case EffectorType.Grabber:
+                    double openAngle = Math.PI *0.30 * (this.Active ?0.5d : 1d) ;
+                    double innerAngle = -Math.PI * 0.30 * 0.5;
+                    for (int i = 0; i < 2; i++)
+                    {
+                        Vector2 endPart = new Vector2(0f);
+                        endPart.X = (float)(Math.Cos(openAngle + angle + change) * this.len * 0.7) + pos.X;
+                        endPart.Y = (float)(Math.Sin(openAngle + angle + change) * this.len * 0.7) + pos.Y;
+                        g.DrawLine(p, pos.X, pos.Y, endPart.X, endPart.Y);
+                        
+                        Vector2 tip = new Vector2(0f);
+                        tip.X = (float)(Math.Cos(innerAngle + angle + change) * this.len * 0.7) + endPart.X;
+                        tip.Y = (float)(Math.Sin(innerAngle + angle + change) * this.len * 0.7) + endPart.Y;
+                        g.DrawLine(p, endPart.X, endPart.Y, tip.X, tip.Y);
 
+                        g.FillEllipse(b, endPart.X - jointWidth/3, endPart.Y - jointWidth/3, (int)(jointWidth/1.5), (int)(jointWidth/1.5));
+
+                        openAngle *= -1;
+                        innerAngle *= -1;
+                    }
+                break;
+
+                case EffectorType.Laser:
+                    // TODO
+                break;
+            }
             p.Dispose();
+            // Iscrtuvanje na zglob
+            jointWidth *= 0.55f;
+            
+            g.FillEllipse(b, pos.X - jointWidth, pos.Y - jointWidth, jointWidth * 2, jointWidth * 2);
+
+            jointWidth *= 0.35f;
+            b = new SolidBrush(this.Colour);
+            g.FillEllipse(b, pos.X - jointWidth, pos.Y - jointWidth, jointWidth * 2, jointWidth * 2);
+
+            b.Dispose();
 
         }
     }

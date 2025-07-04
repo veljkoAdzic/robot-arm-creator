@@ -198,5 +198,16 @@ namespace Build_A_Bot
             }
         }
 
+        private void Form1_MouseDown(object sender, MouseEventArgs e)
+        {
+            this.Rob.EndEffector.Active = true;
+            Invalidate();
+        }
+
+        private void Form1_MouseUp(object sender, MouseEventArgs e)
+        {
+            this.Rob.EndEffector.Active = false;
+            Invalidate();
+        }
     }
 }
