@@ -65,7 +65,7 @@ namespace Build_A_Bot
             calculateEnd();
         }
 
-        private void calculateEnd()
+        protected void calculateEnd()
         {
             double a = angle + change;// * 0.1;
             // presmetka na nov end
@@ -151,36 +151,6 @@ namespace Build_A_Bot
             else 
                 return min;
         }
-
-        //public void GetObjectData(SerializationInfo info, StreamingContext context)
-        //{
-        //    info.AddValue("PosX", (double)pos.X);
-        //    info.AddValue("PosY", (double)pos.Y);
-
-        //    info.AddValue("EndX", (double)end.X);
-        //    info.AddValue("EndY", (double)end.Y);
-
-        //    info.AddValue("Angle", angle);
-        //    info.AddValue("Len", len);
-        //    info.AddValue("Change", change);
-        //    info.AddValue("RangeMin", range_min);
-        //    info.AddValue("RangeMax", range_max);
-        //    info.AddValue("Colour", Colour.ToArgb());
-
-        //}
-
-        //protected Segment(SerializationInfo info, StreamingContext context)
-        //{
-        //    this.pos = new Vector2((float)info.GetDouble("PosX"), (float)info.GetDouble("PosY"));
-        //    this.end = new Vector2((float)info.GetDouble("EndX"), (float)info.GetDouble("EndY"));
-
-        //    this.angle = info.GetDouble("Angle");
-        //    this.len = info.GetDouble("Len");
-        //    this.change = info.GetDouble("Change");
-        //    this.range_min = info.GetDouble("RangeMin");
-        //    this.range_max = info.GetDouble("RangeMax");
-        //    this.Colour = Color.FromArgb( info.GetInt32("Colour") );
-        //}
 
         override public String ToString()
         {

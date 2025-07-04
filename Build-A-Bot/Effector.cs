@@ -34,12 +34,12 @@ namespace Build_A_Bot
             Color jointColour = Color.FromArgb(98, 100, 102);
             float jointWidth = 18.0f;
             Pen p = new Pen(this.Colour, 10.0f);
-            p.EndCap = System.Drawing.Drawing2D.LineCap.Triangle;
             Brush b = new SolidBrush(jointColour);
 
             switch (this.Type)
             {
                 case EffectorType.Grabber:
+                    p.EndCap = System.Drawing.Drawing2D.LineCap.Triangle;
                     double openAngle = Math.PI *0.30 * (this.Active ?0.5d : 1d) ;
                     double innerAngle = -Math.PI * 0.30 * 0.5;
                     for (int i = 0; i < 2; i++)
@@ -62,8 +62,60 @@ namespace Build_A_Bot
                 break;
 
                 case EffectorType.Laser:
-                    // TODO
-                break;
+                    this.calculateEnd();
+                    Vector2 normal = new Vector2(0f);
+                    normal.X = (float)(Math.Cos(angle + change + Segment.OFFSET));
+                    normal.Y = (float)(Math.Sin(angle + change + Segment.OFFSET));
+
+                    Color laserColour = Color.FromArgb(this.Colour.ToArgb());
+                    if (!this.Active)
+                        laserColour = Color.FromArgb(laserColour.R - 20, laserColour.G - 20, laserColour.B - 20);
+                    Brush brush = new SolidBrush(laserColour);
+                    //p.Color = laserColour;
+                    p.Width = 5f;
+                    p.StartCap = System.Drawing.Drawing2D.LineCap.Round;
+                    p.EndCap   = System.Drawing.Drawing2D.LineCap.Round;
+                    // telo na laser
+                    Point[] points = {
+                        new Point((int)(pos.X + normal.X*jointWidth*0.5), (int)(pos.Y + normal.Y*jointWidth*0.5)),
+                        new Point((int)(end.X + normal.X*jointWidth*0.1), (int)(end.Y + normal.Y*jointWidth*0.1)),
+                        new Point((int)(end.X - normal.X*jointWidth*0.1), (int)(end.Y - normal.Y*jointWidth*0.1)),
+                        new Point((int)(pos.X - normal.X*jointWidth*0.5), (int)(pos.Y - normal.Y*jointWidth*0.5))
+                    };
+                    g.FillPolygon(brush, points);
+
+
+                    // prsteni
+                    Vector2 section = new Vector2();
+                    for(float i = 0.55f; i < 0.8; i += 0.2f)
+                    {
+                    section.X = pos.X + (float)(len*i * Math.Cos(change + angle));
+                    section.Y = pos.Y + (float)(len*i * Math.Sin(change + angle));
+                    g.DrawLine(p, 
+                        section.X + normal.X * jointWidth*0.25f/i, section.Y + normal.Y * jointWidth*0.25f/i, 
+                        section.X - normal.X * jointWidth*0.25f/i, section.Y - normal.Y * jointWidth*0.25f/i);
+                    }
+
+                    // Laser
+                    if (this.Active && this.Type == EffectorType.Laser)
+                    {
+                    Vector2 laserEnd = new Vector2(0f);
+                    laserEnd.X = end.X + (float)(1000 * Math.Cos(change + angle));
+                    laserEnd.Y = end.Y + (float)(1000 * Math.Sin(change + angle));
+
+                    p.Width = 7f;
+                    g.DrawLine(p, end.X, end.Y, laserEnd.X, laserEnd.Y);
+
+                    p.Width = 2f;
+                    p.Color = Color.White;
+                    g.DrawLine(p, end.X, end.Y, laserEnd.X, laserEnd.Y);
+                    }
+
+                    // vrv na laser
+                    g.FillEllipse(brush, end.X - jointWidth * 0.25f, end.Y - jointWidth * 0.25f, jointWidth * 0.5f, jointWidth * 0.5f);
+
+
+                    break;
             }
             p.Dispose();
             // Iscrtuvanje na zglob
