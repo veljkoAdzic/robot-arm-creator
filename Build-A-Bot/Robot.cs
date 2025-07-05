@@ -129,7 +129,8 @@ namespace Build_A_Bot
                 }
             }
 
-            this.EndEffector = ef;
+            this.EndEffector = new Effector(ef);
+            this.EndEffector.Rebase(this.Segments.Last().end);
             this.AllSegments = new List<Segment>(this.Segments);
             this.AllSegments.Add(this.EndEffector);
 

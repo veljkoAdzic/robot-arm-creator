@@ -44,6 +44,8 @@
             this.btnSave = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.cbEffector = new System.Windows.Forms.ComboBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.btnEffectorColour = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.nudLength)).BeginInit();
             this.SuspendLayout();
             // 
@@ -115,9 +117,9 @@
             // 
             // btnAdd
             // 
-            this.btnAdd.Location = new System.Drawing.Point(21, 143);
+            this.btnAdd.Location = new System.Drawing.Point(21, 187);
             this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(237, 20);
+            this.btnAdd.Size = new System.Drawing.Size(114, 20);
             this.btnAdd.TabIndex = 5;
             this.btnAdd.Text = "Додади сегмент";
             this.btnAdd.UseVisualStyleBackColor = true;
@@ -145,9 +147,9 @@
             // 
             // btnDelete
             // 
-            this.btnDelete.Location = new System.Drawing.Point(21, 187);
+            this.btnDelete.Location = new System.Drawing.Point(145, 187);
             this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(237, 20);
+            this.btnDelete.Size = new System.Drawing.Size(113, 20);
             this.btnDelete.TabIndex = 9;
             this.btnDelete.Text = "Избриши сегмент";
             this.btnDelete.UseVisualStyleBackColor = true;
@@ -161,7 +163,9 @@
             this.pnlPreview.Size = new System.Drawing.Size(335, 367);
             this.pnlPreview.TabIndex = 10;
             this.pnlPreview.Paint += new System.Windows.Forms.PaintEventHandler(this.pnlPreview_Paint);
+            this.pnlPreview.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pnlPreview_MouseDown);
             this.pnlPreview.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pnlPreview_MouseMove);
+            this.pnlPreview.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pnlPreview_MouseUp);
             // 
             // btnCancel
             // 
@@ -199,12 +203,33 @@
             this.cbEffector.Name = "cbEffector";
             this.cbEffector.Size = new System.Drawing.Size(145, 21);
             this.cbEffector.TabIndex = 14;
+            this.cbEffector.SelectionChangeCommitted += new System.EventHandler(this.cbEffector_SelectionChangeCommitted);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(18, 143);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(62, 10);
+            this.label4.TabIndex = 15;
+            this.label4.Text = "Ефектор боја:";
+            // 
+            // btnEffectorColour
+            // 
+            this.btnEffectorColour.Location = new System.Drawing.Point(113, 139);
+            this.btnEffectorColour.Name = "btnEffectorColour";
+            this.btnEffectorColour.Size = new System.Drawing.Size(145, 20);
+            this.btnEffectorColour.TabIndex = 16;
+            this.btnEffectorColour.UseVisualStyleBackColor = true;
+            this.btnEffectorColour.Click += new System.EventHandler(this.btnEffectorColour_Click);
             // 
             // BuilderMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(711, 463);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.btnEffectorColour);
             this.Controls.Add(this.cbEffector);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.btnSave);
@@ -246,5 +271,7 @@
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ComboBox cbEffector;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Button btnEffectorColour;
     }
 }

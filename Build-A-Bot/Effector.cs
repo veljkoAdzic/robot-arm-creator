@@ -29,6 +29,13 @@ namespace Build_A_Bot
             this.Active = false;
         }
 
+        public Effector(Effector ot)
+            :base(ot, ot.len, ot.Colour)
+        {
+            this.Type = ot.Type;
+            this.Active = ot.Active;
+        }
+
         public void Show(Graphics g)
         {
             Color jointColour = Color.FromArgb(98, 100, 102);
@@ -69,7 +76,11 @@ namespace Build_A_Bot
 
                     Color laserColour = Color.FromArgb(this.Colour.ToArgb());
                     if (!this.Active)
-                        laserColour = Color.FromArgb(laserColour.R - 20, laserColour.G - 20, laserColour.B - 20);
+                        laserColour = Color.FromArgb(
+                            Math.Max(laserColour.R - 20, 0),
+                            Math.Max(laserColour.G - 20, 0),
+                            Math.Max(laserColour.B - 20, 0)
+                            );
                     Brush brush = new SolidBrush(laserColour);
                     //p.Color = laserColour;
                     p.Width = 5f;
