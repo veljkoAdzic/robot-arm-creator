@@ -136,8 +136,7 @@ namespace Build_A_Bot
         {
             Vector2 end = AllSegments.Last().end;
             Segments.RemoveAt(index);
-            this.AllSegments = new List<Segment>(Segments);
-            this.AllSegments.Add(EndEffector);
+            AllSegments.RemoveAt(index);
             this.Length--;
             this.Update(end.X, end.Y);
         }
