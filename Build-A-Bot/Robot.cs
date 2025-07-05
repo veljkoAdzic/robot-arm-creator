@@ -14,19 +14,20 @@ using System.Windows.Forms;
 
 namespace Build_A_Bot
 {
-   // [Serializable]
-    public class Robot //: ISerializable
+    public class Robot
     {
         public List<Segment> Segments { get; set; }
         public int Length { get; set; }
         [JsonConverter(typeof(JsonVec2Converter))]
         public Vector2 Base { get; set; }
-        public bool FollowMouse { get; set; }
+        [JsonIgnore]
+        public bool FollowMouse { get; set; } = false;
         [JsonIgnore]
         public DummyBall Ball { get; set; }
 
         public int Width { get; set; }
         public int Height { get; set; }
+        [JsonIgnore]
         public bool PreviewMode { get; set; } = false;
         public Effector EndEffector { get; set; }
         [JsonIgnore]
@@ -49,17 +50,13 @@ namespace Build_A_Bot
 
         public void AddSegment(double len, Color? c = null)
         {
-            AddSegment(len, -365.0, 365.0, c.GetValueOrDefault(Segment.DEFAULT_COLOUR));
-        }
-        public void AddSegment(double len, double range_min, double range_max, Color? c)
-        {
             if (Length == 0)
-                Segments.Add(new Segment(Base, len, 0, range_min, range_max, c)); // Dodavanje na prv segment
+                Segments.Add(new Segment(Base, len, 0, c)); // Dodavanje na prv segment
             else
             {   // Dodavanje na sleden segment
                 Segment last = Segments.Last();
                 Segments.Add(
-                    new Segment(last, len, c)//, range_min, range_max)
+                    new Segment(last, len, c)
                 );
             }
 
@@ -73,19 +70,17 @@ namespace Build_A_Bot
         }
 
         public void BallUpdate()
-        {
+        {   // Postavuvanje topche na vrv na efektorot
             Ball.X = EndEffector.end.X;
             Ball.Y = EndEffector.end.Y;
         }
 
         public void Update()
-        {
+        {   // Update so sledenje na topche
             this.Update(-100, -100);
         }
         public void Update(float X, float Y)
         {
-            //if (Length == 0) return
-
             this.FollowMouse = X > 0 && X < Width && Y > 0 && Y < Height;
             if (FollowMouse) BallUpdate();
 
@@ -112,15 +107,15 @@ namespace Build_A_Bot
         }
 
         public void BuildFrom(List<Segment> segs, Effector ef, bool Rebase = false)
-        {
-            if (!Rebase)
+        {   // Recreacija na robot of dadeni segmenti i efektor
+            if (!Rebase) // Bez promena na pozicija na segmenti
             {
                 this.Segments = segs;
                 this.Length = this.Segments.Count;
                 this.Base = new Vector2(segs[0].pos.X, segs[0].pos.Y);
             }
             else
-            {
+            {   // So promena na pozicija do Base
                 this.Segments.Clear();
                 this.Length = 0;
                 foreach (var segment in segs)
@@ -139,7 +134,7 @@ namespace Build_A_Bot
 
         public void RemoveSegement(int index)
         {
-            Vector2 end = Segments.Last().end;
+            Vector2 end = AllSegments.Last().end;
             Segments.RemoveAt(index);
             this.AllSegments = new List<Segment>(Segments);
             this.AllSegments.Add(EndEffector);
@@ -165,11 +160,17 @@ namespace Build_A_Bot
 
             // Iscrtuvanje baza na robotska raka
             Color c = Color.FromArgb(108, 110, 111);
-            Brush b = new SolidBrush(c);
+            Brush b = new SolidBrush(Color.FromArgb(100, 102, 104));
 
             int Rad = 20;
             g.FillEllipse(b, Base.X - Rad, Base.Y - Rad, Rad * 2, Rad * 2);
 
+            b = new SolidBrush(AllSegments[0].Colour);
+            float mod = 0.4f;
+            g.FillEllipse(b, Base.X - Rad* mod, Base.Y - Rad * mod, Rad * 2 * mod, Rad * 2 * mod);
+
+            // baza blok
+            b = new SolidBrush(c);
             Point[] points = {
                 new Point((int)(Base.X-Rad*3), this.Width + 50),
                 new Point((int)(Base.X-Rad*3), (int)(Base.Y+20)),

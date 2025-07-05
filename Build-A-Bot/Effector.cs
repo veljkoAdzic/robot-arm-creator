@@ -23,12 +23,13 @@ namespace Build_A_Bot
 
         public Effector() : base() { }
         public Effector(Vector2 pos, EffectorType Type = EffectorType.Grabber)
-        :base(pos, 50.0, 0, -360.0, 360.0)
+        :base(pos, 50.0, 0)
         {
             this.Type = Type;
             this.Active = false;
         }
 
+        // Copy konstruktor
         public Effector(Effector ot)
             :base(ot, ot.len, ot.Colour)
         {
@@ -45,47 +46,56 @@ namespace Build_A_Bot
 
             switch (this.Type)
             {
-                case EffectorType.Grabber:
+                case EffectorType.Grabber: // Isrctuvanje Pipalo
                     p.EndCap = System.Drawing.Drawing2D.LineCap.Triangle;
                     double openAngle = Math.PI *0.30 * (this.Active ?0.5d : 1d) ;
                     double innerAngle = -Math.PI * 0.30 * 0.5;
+                    // Iscrtuvanje na prsti od pipalo
                     for (int i = 0; i < 2; i++)
                     {
+                        // Presmetki i iscrtuvanje na dolen del od prst
                         Vector2 endPart = new Vector2(0f);
                         endPart.X = (float)(Math.Cos(openAngle + angle + change) * this.len * 0.7) + pos.X;
                         endPart.Y = (float)(Math.Sin(openAngle + angle + change) * this.len * 0.7) + pos.Y;
                         g.DrawLine(p, pos.X, pos.Y, endPart.X, endPart.Y);
                         
+                        // Presmetki i iscrtuvanje na goren del od prst
                         Vector2 tip = new Vector2(0f);
                         tip.X = (float)(Math.Cos(innerAngle + angle + change) * this.len * 0.7) + endPart.X;
                         tip.Y = (float)(Math.Sin(innerAngle + angle + change) * this.len * 0.7) + endPart.Y;
                         g.DrawLine(p, endPart.X, endPart.Y, tip.X, tip.Y);
 
+                        // Iscrtuvanje zglob na prst
                         g.FillEllipse(b, endPart.X - jointWidth/3, endPart.Y - jointWidth/3, (int)(jointWidth/1.5), (int)(jointWidth/1.5));
 
+                        // Prevrtuvanje zada bidat simetrichni
                         openAngle *= -1;
                         innerAngle *= -1;
                     }
                 break;
-
-                case EffectorType.Laser:
+                
+                case EffectorType.Laser: // Iscrtuvanje na laser
                     this.calculateEnd();
+                    // Presmetka na normala 
                     Vector2 normal = new Vector2(0f);
                     normal.X = (float)(Math.Cos(angle + change + Segment.OFFSET));
                     normal.Y = (float)(Math.Sin(angle + change + Segment.OFFSET));
 
-                    Color laserColour = Color.FromArgb(this.Colour.ToArgb());
+                    // Presmetka na boja na laserot
+                    Color laserColour = this.Colour;
                     if (!this.Active)
                         laserColour = Color.FromArgb(
                             Math.Max(laserColour.R - 20, 0),
                             Math.Max(laserColour.G - 20, 0),
                             Math.Max(laserColour.B - 20, 0)
-                            );
+                        );
+
+                    // Postavuvanje chetka i penkalo
                     Brush brush = new SolidBrush(laserColour);
-                    //p.Color = laserColour;
                     p.Width = 5f;
                     p.StartCap = System.Drawing.Drawing2D.LineCap.Round;
                     p.EndCap   = System.Drawing.Drawing2D.LineCap.Round;
+
                     // telo na laser
                     Point[] points = {
                         new Point((int)(pos.X + normal.X*jointWidth*0.5), (int)(pos.Y + normal.Y*jointWidth*0.5)),

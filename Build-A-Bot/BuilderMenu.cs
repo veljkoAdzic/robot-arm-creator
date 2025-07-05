@@ -64,13 +64,16 @@ namespace Build_A_Bot
         private void BuilderMenu_Load(object sender, EventArgs e)
         {
             // StackOverflow is a godsent
+            // Postavuvanje dvoen buffer na pnlPreview
             typeof(Panel).InvokeMember("DoubleBuffered", 
                 BindingFlags.SetProperty | BindingFlags.Instance | 
                 BindingFlags.NonPublic, null, pnlPreview, new object[] {true});
 
+            // Postavuvanje na kopchinja
             this.AcceptButton = btnSave;
             this.CancelButton = btnCancel;
 
+            // Postavuvanje defaultni opcii
             this.SelectedColour = Segment.DEFAULT_COLOUR;
             btnColour.BackColor = SelectedColour;
             btnEffectorColour.BackColor = EditingRobot.EndEffector.Colour ;
@@ -197,7 +200,7 @@ namespace Build_A_Bot
             DialogResult = DialogResult.OK;
         }
         private void cbEffector_SelectionChangeCommitted(object sender, EventArgs e)
-        {
+        {   // Menjanje vid na efektor
             if (cbEffector.SelectedItem == null) return;
             this.EditingRobot.EndEffector.Type = (EffectorType)cbEffector.SelectedItem;
             this.Modified = true;
@@ -205,7 +208,7 @@ namespace Build_A_Bot
         }
 
         private void btnEffectorColour_Click(object sender, EventArgs e)
-        {
+        {   // Menuvanje boja na efektor
             colorDialog.AllowFullOpen = true;
             colorDialog.ShowHelp = true;
             colorDialog.Color = EditingRobot.EndEffector.Colour;
@@ -221,13 +224,13 @@ namespace Build_A_Bot
         }
 
         private void pnlPreview_MouseDown(object sender, MouseEventArgs e)
-        {
+        {   // Aktivacija na efektor
             this.EditingRobot.EndEffector.Active = true;
             pnlPreview.Invalidate();
         }
 
         private void pnlPreview_MouseUp(object sender, MouseEventArgs e)
-        {
+        {   // Deaktivacija na efektor
             this.EditingRobot.EndEffector.Active = false;
             pnlPreview.Invalidate();
         }

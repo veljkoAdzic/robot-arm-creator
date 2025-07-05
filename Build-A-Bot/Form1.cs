@@ -34,14 +34,6 @@ namespace Build_A_Bot
             loadFromFile();
             this.FileLocation = null;
             this.Modified = false;
-
-            //this.Modified = true;
-            //List<Segment> segs = Rob.Segments;
-            //Rob = new Robot(this.Width / 2, this.Height - 70, this.Width, this.Height);
-            //for(int len = 80; len >= 50; len -= 15)
-            //{
-            //    Rob.AddSegment(len);
-            //}
         }
 
         private void Form1_Paint(object sender, PaintEventArgs e)

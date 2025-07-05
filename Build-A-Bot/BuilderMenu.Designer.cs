@@ -117,7 +117,7 @@
             // 
             // btnAdd
             // 
-            this.btnAdd.Location = new System.Drawing.Point(21, 187);
+            this.btnAdd.Location = new System.Drawing.Point(21, 183);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(114, 20);
             this.btnAdd.TabIndex = 5;
@@ -147,7 +147,7 @@
             // 
             // btnDelete
             // 
-            this.btnDelete.Location = new System.Drawing.Point(145, 187);
+            this.btnDelete.Location = new System.Drawing.Point(145, 183);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(113, 20);
             this.btnDelete.TabIndex = 9;
@@ -210,7 +210,7 @@
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(18, 143);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(62, 10);
+            this.label4.Size = new System.Drawing.Size(77, 13);
             this.label4.TabIndex = 15;
             this.label4.Text = "Ефектор боја:";
             // 
