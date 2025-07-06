@@ -355,7 +355,7 @@ public Effector(Effector ot)
 
 ## Користени ресурси
 
-За овој проект се користени икони од [Google Fonts](https://fonts.google.com/icons) за копчињата од статусната линија, и икона од [Noun Project](https://thenounproject.com/icon/robotic-arm-7847123/) за слика на прозорците во горниот лев ќош.
+За овој проект се користени икони од [Google Fonts](https://fonts.google.com/icons) за копчињата од статусната линија, и икона од [Noun Project](https://thenounproject.com/) за слика на прозорците во горниот лев ќош.
 
 ### Вештачка интелигенција
 
