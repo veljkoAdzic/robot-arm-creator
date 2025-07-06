@@ -389,8 +389,8 @@ public Effector(Effector ot)
 > X = value.X,
 > Y = value.Y
 > };
-> ```
 > var res = JsonSerializer.Serialize(vec);
 > writer.WriteStringValue(res);
 > }
 > }
+> ```
