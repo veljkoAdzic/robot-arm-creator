@@ -370,6 +370,7 @@ public Effector(Effector ot)
 Ова Порака е користена да се најде точно како да се имплементира JSON сереализација и десереализација на `Vector2` класата.
 
 > Forget all context. How do I overload the Read method in JsonVec2Converter?
+> ```C#
 > public class JsonVec2
 > {
 > public float? X { get; set; }
@@ -388,6 +389,7 @@ public Effector(Effector ot)
 > X = value.X,
 > Y = value.Y
 > };
+> ```
 > var res = JsonSerializer.Serialize(vec);
 > writer.WriteStringValue(res);
 > }
