@@ -35,9 +35,130 @@
 
 Главните податоци и функционалности се чуваат во класите `Robot`, `Segment` и во главниот формулар `MainForm`.
 
-## Објаснување на код
+### MainForm имплементација
 
-Објаснување код... (Robot, Segment; Effector maybe)
+Во `MainForm` се чува роботот кој се симулира, локација на дадотека (ако не е отворена датотека се поставува на `null`, и знаменци за дали роботот бил модифиран)
+
+```csharp
+public partial class MainForm : Form
+{
+    public Robot Rob { get; set; }
+    public String FileLocation { get; set; }
+    public bool Modified { get; set; }
+}
+```
+
+Со овие функции се контролира однесувањето на роботот. Кога тајмерот изврши такт роботот го следи топчето, а кога глувшето се движи го следи курсерот.
+
+```csharp
+private void timer1_Tick(object sender, EventArgs e)
+{
+    Rob.Update();
+    Invalidate();
+}
+
+private void MainForm_MouseMove(object sender, MouseEventArgs e)
+{
+    Rob.Update(e.X, e.Y);
+    Invalidate();
+}
+
+private void MainForm_MouseLeave(object sender, EventArgs e)
+{
+    Rob.BallUpdate();
+    timer1.Start();
+}
+
+private void MainForm_MouseEnter(object sender, EventArgs e)
+{
+    timer1.Stop();
+}
+```
+
+Овие две функции вршат JSON серелизација на роботот. Користено е `JsonSerializer` наместо `BinaryFormatter` поради тоа што BinaryFormatter има грешка во неговата имплементација што се појави за серелизација на роботот. Грешката се појавуваше во десереализација на листа од сегменти каде од датотекасе добива листа со точна големина, но со `null` елементи. Заради тоа се користи JsonSerializer.
+
+```csharp
+private void saveToFile()
+{
+    if(FileLocation == null)
+    {
+        SaveFileDialog sfd = new SaveFileDialog();
+        sfd.Filter = "Robot Arm File (*.rarm)|*.rarm";
+        sfd.Title = "Зачувај Робот";
+        if(sfd.ShowDialog() == DialogResult.OK)
+        {
+            FileLocation = sfd.FileName;
+        }
+    }
+
+    if( FileLocation != null)
+    {
+        using(FileStream fs = new FileStream(FileLocation, FileMode.OpenOrCreate, FileAccess.Write))
+        {
+            JsonSerializer.Serialize<Robot>(fs, this.Rob);
+        }
+
+        this.Modified = false;
+    }
+}
+
+private void loadFromFile()
+{
+    if(FileLocation == null)
+    {
+        OpenFileDialog ofd = new OpenFileDialog();
+        ofd.Filter = "Robot Arm File (*.rarm)|*.rarm";
+        ofd.Title = "Вчитај Робот";
+
+        if (ofd.ShowDialog() == DialogResult.OK)
+        {
+            FileLocation = ofd.FileName;
+        }
+    }
+
+    if(FileLocation != null)
+    {
+        try
+        {
+            Robot newRob;
+            using (FileStream fs = new FileStream(FileLocation, FileMode.Open, FileAccess.Read))
+            {
+                newRob = JsonSerializer.Deserialize<Robot>(fs);
+            }
+            this.Rob.BuildFrom(newRob.Segments, newRob.EndEffector);
+            this.Modified = false;
+        } catch (Exception e)
+        {
+            MessageBox.Show(e.Message);
+        }
+    }
+}
+```
+
+### Robot имплементација
+
+Во класа `Robot` се чуваат овие параметри. Сите параметри означени со `[JsonIgnore]` не се сереализираат. Параметарот `Base` го има `[JsonConverter(typeof(JsonVec2Converter))]` бидејќи `Vector2` класата нема имплементација за серелизација во JSON. Класата `DummyBall` ја содржи имплементацијата на топчето кое роботот го следи.
+
+```csharp
+public class Robot
+{
+    public List<Segment> Segments { get; set; }
+    public int Length { get; set; }
+    [JsonConverter(typeof(JsonVec2Converter))]
+    public Vector2 Base { get; set; }
+    [JsonIgnore]
+    public bool FollowMouse { get; set; } = false;
+    [JsonIgnore]
+    public DummyBall Ball { get; set; }
+    public int Width { get; set; }
+    public int Height { get; set; }
+    [JsonIgnore]
+    public bool PreviewMode { get; set; } = false;
+    public Effector EndEffector { get; set; }
+    [JsonIgnore]
+    public List<Segment> AllSegments { get; set; }
+}
+```
 
 ## Користени ресурси
 
