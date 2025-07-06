@@ -13,12 +13,12 @@ using System.Text.Json;
 
 namespace Build_A_Bot
 {
-    public partial class Form1 : Form
+    public partial class MainForm : Form
     {
         public Robot Rob { get; set; }
         public String FileLocation { get; set; }
         public bool Modified { get; set; }
-        public Form1()
+        public MainForm()
         {
             InitializeComponent();
             this.DoubleBuffered = true;
@@ -28,7 +28,7 @@ namespace Build_A_Bot
             Rob = new Robot(this.Width / 2, this.Height - 50, this.Width, this.Height);
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void MainForm_Load(object sender, EventArgs e)
         {
             this.FileLocation = Application.StartupPath + "\\Assets\\DefaultRobot.rarm";
             loadFromFile();
@@ -36,7 +36,7 @@ namespace Build_A_Bot
             this.Modified = false;
         }
 
-        private void Form1_Paint(object sender, PaintEventArgs e)
+        private void MainForm_Paint(object sender, PaintEventArgs e)
         {
             e.Graphics.Clear(Color.FromArgb(230, 230, 230));
             Rob.Show(e.Graphics);
@@ -51,19 +51,19 @@ namespace Build_A_Bot
             Invalidate();
         }
 
-        private void Form1_MouseMove(object sender, MouseEventArgs e)
+        private void MainForm_MouseMove(object sender, MouseEventArgs e)
         {
             Rob.Update(e.X, e.Y);
             Invalidate();
         }
 
-        private void Form1_MouseLeave(object sender, EventArgs e)
+        private void MainForm_MouseLeave(object sender, EventArgs e)
         {
             Rob.BallUpdate();
             timer1.Start();
         }
 
-        private void Form1_MouseEnter(object sender, EventArgs e)
+        private void MainForm_MouseEnter(object sender, EventArgs e)
         {
             timer1.Stop();
         }
@@ -190,13 +190,13 @@ namespace Build_A_Bot
             }
         }
 
-        private void Form1_MouseDown(object sender, MouseEventArgs e)
+        private void MainForm_MouseDown(object sender, MouseEventArgs e)
         {
             this.Rob.EndEffector.Active = true;
             Invalidate();
         }
 
-        private void Form1_MouseUp(object sender, MouseEventArgs e)
+        private void MainForm_MouseUp(object sender, MouseEventArgs e)
         {
             this.Rob.EndEffector.Active = false;
             Invalidate();

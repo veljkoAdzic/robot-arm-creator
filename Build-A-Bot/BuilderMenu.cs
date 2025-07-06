@@ -185,7 +185,7 @@ namespace Build_A_Bot
         private void btnCancel_Click(object sender, EventArgs e)
         {
             this.Modified = false;
-            Form1 f = Parent as Form1;
+            MainForm f = Parent as MainForm;
             DialogResult = DialogResult.Cancel;
         }
 
@@ -196,7 +196,7 @@ namespace Build_A_Bot
                 MessageBox.Show("Роботска рака мора да се состои од барем 1 сегмент!", "Невалиден робот", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            Form1 f = Parent as Form1;
+            MainForm f = Parent as MainForm;
             DialogResult = DialogResult.OK;
         }
         private void cbEffector_SelectionChangeCommitted(object sender, EventArgs e)
